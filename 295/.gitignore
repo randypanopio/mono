@@ -10,3 +10,7 @@
 *.out
 # ignore intermediarey object files
 *.o
+
+
+# ignore intermediary files 
+*.i

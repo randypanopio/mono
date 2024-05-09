@@ -1,0 +1,12 @@
+1) What were the four commands you used to assemble, compile, link, and run in the "Compiling and Assembling" section?
+
+
+
+2) What was the first command you used to compile array_sum.c? How must faster/slower was your C implementation compared to the provided assembly?
+
+
+3) How did the speed of the C and assembly implementations of array_sum compare after you added -O3 to the compilation command? How did C speed compare with and without -O3?
+
+
+
+

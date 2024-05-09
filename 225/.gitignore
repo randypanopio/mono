@@ -3,6 +3,8 @@
 
 # Unignore all with extensions
 !*.*
+# unignore makefiles
+!makefile
 
 # Unignore all dirs
 !*/
@@ -12,3 +14,5 @@
 
 # ignore compiled binaries
 *.out
+
+*.o
