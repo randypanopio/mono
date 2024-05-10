@@ -2,6 +2,9 @@
 
 
 
+Singular command: 
+gcc -Wall -Wpedantic -std=c17 -march=haswell array_sum_speed.c array_sum.S -o my_program
+
 2) What was the first command you used to compile array_sum.c? How must faster/slower was your C implementation compared to the provided assembly?
 
 
