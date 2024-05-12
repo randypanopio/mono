@@ -1,5 +1,26 @@
 1) What were the four commands you used to assemble, compile, link, and run in the "Compiling and Assembling" section?
 
+1) Assemble .S Step:
+gcc -c array_sum.S
+
+NOTE: the above command generates array_sum.o from array_sum.c 
+
+2) Compile .c Step:
+gcc -c array_sum_speed.c 
+
+NOTE: the above command generates the array_sum_speed.o from array_sum_speed.c
+
+3) Link .o Step:
+ld -o program array_sum_speed.o array_sum.o \
+  -lc /usr/lib/x86_64-linux-gnu/crt1.o \
+  --dynamic-linker /lib64/ld-linux-x86-64.so.2
+
+NOTE: the above command generates links the object files, as well as additional libraries to create the final program.out 
+
+4) Running the Program:
+./program 1000000
+
+NOTE: the above command runs the program.out with an arguement 1000000 (executing the command in the directory where the program.out exists)
 
 
 Singular command: 
@@ -7,6 +28,8 @@ gcc -Wall -Wpedantic -std=c17 -march=haswell array_sum_speed.c array_sum.S -o my
 
 2) What was the first command you used to compile array_sum.c? How must faster/slower was your C implementation compared to the provided assembly?
 
+Single Step Compile command:
+gcc -Wall -Wpedantic -std=c17 -march=haswell array_sum.c -o program.out
 
 3) How did the speed of the C and assembly implementations of array_sum compare after you added -O3 to the compilation command? How did C speed compare with and without -O3?
 
