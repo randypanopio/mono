@@ -1,4 +1,4 @@
-1) What were the four commands you used to assemble, compile, link, and run in the "Compiling and Assembling" section?
+Q1) What were the four commands you used to assemble, compile, link, and run in the "Compiling and Assembling" section?
 
 1) Assemble .S Step:
 gcc -c array_sum.S
@@ -26,13 +26,50 @@ NOTE: the above command runs the program.out with an arguement 1000000 (executin
 Singular command: 
 gcc -Wall -Wpedantic -std=c17 -march=haswell array_sum_speed.c array_sum.S -o my_program
 
-2) What was the first command you used to compile array_sum.c? How must faster/slower was your C implementation compared to the provided assembly?
+Q2) What was the first command you used to compile array_sum.c? How must faster/slower was your C implementation compared to the provided assembly?
 
-Single Step Compile command:
-gcc -Wall -Wpedantic -std=c17 -march=haswell array_sum.c -o program.out
+1) Command compiling array_sum.c
+gcc -c array_sum.c
 
-3) How did the speed of the C and assembly implementations of array_sum compare after you added -O3 to the compilation command? How did C speed compare with and without -O3?
+2) Test results:
+with the original assembly implementation:
+calculated 4502733 in 0.2274 ms
+calculated 4502733 in 0.2336 ms
+calculated 4502733 in 0.2344 ms
+calculated 4502733 in 0.2355 ms
+calculated 4502733 in 0.2351 ms
+calculated 4502733 in 0.235 ms
+calculated 4502733 in 0.2697 ms
+calculated 4502733 in 0.2327 ms
+calculated 4502733 in 0.2303 ms
+calculated 4502733 in 0.2622 ms
 
+With my array_sum.c implementation:
+calculated 4502733 in 0.8429 ms
+calculated 4502733 in 0.8342 ms
+calculated 4502733 in 0.8417 ms
+calculated 4502733 in 0.8353 ms
+calculated 4502733 in 0.8311 ms
+calculated 4502733 in 0.8343 ms
+calculated 4502733 in 0.8471 ms
+calculated 4502733 in 0.8306 ms
+calculated 4502733 in 0.8291 ms
+calculated 4502733 in 0.8307 ms
 
+My C implementation is roughly ~0.6 ms slower than the original assembly version
+
+Q3) How did the speed of the C and assembly implementations of array_sum compare after you added -O3 to the compilation command? How did C speed compare with and without -O3?
+
+With the -O3 flag included on my array_sum.c step, I the following results
+calculated 4502733 in 0.0808 ms
+calculated 4502733 in 0.0547 ms
+calculated 4502733 in 0.0542 ms
+calculated 4502733 in 0.0533 ms
+calculated 4502733 in 0.0533 ms
+calculated 4502733 in 0.0535 ms
+calculated 4502733 in 0.0537 ms
+calculated 4502733 in 0.0537 ms
+calculated 4502733 in 0.0536 ms
+calculated 4502733 in 0.0536 ms
 
 

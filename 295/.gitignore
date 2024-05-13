@@ -4,6 +4,8 @@
 !*.*
 # Unignore all dirs
 !*/
+# unignore makefiles
+!makefile
 ### Above combination will ignore all files without extension ###
 
 # ignore compiled binaries
