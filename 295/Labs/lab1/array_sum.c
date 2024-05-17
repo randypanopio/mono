@@ -1,3 +1,9 @@
+/*
+Submission by Randy Panopio
+rpanopio@sfu.ca 
+ID: 301294517
+*/
+
 #include <stdint.h>
 
 int32_t array_sum(int32_t *arr, uint32_t n) {

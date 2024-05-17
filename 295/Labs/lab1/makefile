@@ -11,4 +11,4 @@
 
 
 clear:
-	rm -f *.o program *.out
+	rm -f *.o program *.out my_program

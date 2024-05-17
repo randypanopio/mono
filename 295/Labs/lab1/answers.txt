@@ -1,3 +1,7 @@
+Submission by Randy Panopio
+rpanopio@sfu.ca 
+ID: 301294517
+
 Q1) What were the four commands you used to assemble, compile, link, and run in the "Compiling and Assembling" section?
 
 1) Assemble .S Step:
@@ -22,10 +26,6 @@ NOTE: the above command generates links the object files, as well as additional 
 
 NOTE: the above command runs the program.out with an arguement 1000000 (executing the command in the directory where the program.out exists)
 
-
-Singular command: 
-gcc -Wall -Wpedantic -std=c17 -march=haswell array_sum_speed.c array_sum.S -o my_program
-
 Q2) What was the first command you used to compile array_sum.c? How must faster/slower was your C implementation compared to the provided assembly?
 
 1) Command compiling array_sum.c
@@ -43,6 +43,7 @@ calculated 4502733 in 0.2697 ms
 calculated 4502733 in 0.2327 ms
 calculated 4502733 in 0.2303 ms
 calculated 4502733 in 0.2622 ms
+Running on average 0.23959 ms
 
 With my array_sum.c implementation:
 calculated 4502733 in 0.8429 ms
@@ -55,12 +56,13 @@ calculated 4502733 in 0.8471 ms
 calculated 4502733 in 0.8306 ms
 calculated 4502733 in 0.8291 ms
 calculated 4502733 in 0.8307 ms
+Running on average 0.8357 ms
 
-My C implementation is roughly ~0.6 ms slower than the original assembly version
+My C implementation is roughly ~0.6 ms slower than the original assembly version. Running ~3.5 times slower than the original version.
 
 Q3) How did the speed of the C and assembly implementations of array_sum compare after you added -O3 to the compilation command? How did C speed compare with and without -O3?
 
-With the -O3 flag included on my array_sum.c step, I the following results
+With the -O3 flag included on my array_sum.c step, I got the following results
 calculated 4502733 in 0.0808 ms
 calculated 4502733 in 0.0547 ms
 calculated 4502733 in 0.0542 ms
@@ -71,5 +73,6 @@ calculated 4502733 in 0.0537 ms
 calculated 4502733 in 0.0537 ms
 calculated 4502733 in 0.0536 ms
 calculated 4502733 in 0.0536 ms
+Running on average 0.05644 ms
 
-
+Comparing the original compiled C vs the second attempt with the -O3 flag, the flag made the result run ~14.8 time faster than without the flag. Running on average ~0.78 ms faster with the flag enabled.
