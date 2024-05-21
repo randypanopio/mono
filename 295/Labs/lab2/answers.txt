@@ -1,0 +1,11 @@
+Q1) In a few words, describe the value returned by provided do_something function. (This should be a natural sentence that describes the result, not a mechanical description of what the code does, and not "64" because that's what's returned for a specific argument: you should describe what the function returns in general).
+
+Given an input number, the function do_something will continiously loop over loop_top until the the value in rbx matches (or greater than) the original (in this case register rdi) input (otherwise it will jump back to the loop and do another increment to register rbx by 2 using an intermediary reigster rcx) and finally when the condition is met, breaks the loop and finally returns the value in register rbx (by setting the value in register rax). 
+
+Q2) In your calculate function, why did you choose a preserved/non-preserved register for the different partial results?
+
+
+// compile command
+gcc -Wall -Wpedantic -std=c17 -march=haswell -c helpers.c \
+&& as --warn -g unknown.S -o unknown.o \
+&& ld helpers.o unknown.o
