@@ -5,3 +5,74 @@ https://web.archive.org/web/20230529061923/https://coursys.sfu.ca/2023su-cmpt-29
 GNU debugger
 
 
+info registers rax rbx rcx rdi
+
+rax            0x0                 0
+rbx            0x1                 1
+rcx            0x3                 3
+rdi            0x3c                60
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+info registers rax rbx rcx rdi
+
+rax            0x0                 0
+rbx            0x1                 1
+rcx            0x3                 3
+rdi            0x3c                60
+
+rax            0x0                 0
+rbx            0x4                 4
+rcx            0x5                 5
+rdi            0x3c                60
+
+rax            0x0                 0
+rbx            0x9                 9
+rcx            0x7                 7
+rdi            0x3c                60
+
+rax            0x0                 0
+rbx            0x10                16
+rcx            0x9                 9
+rdi            0x3c                60
+
+rax            0x0                 0
+rbx            0x19                25
+rcx            0xb                 11
+rdi            0x3c                60
+
+rax            0x0                 0
+rbx            0x24                36
+rcx            0xd                 13
+rdi            0x3c                60
+
+rax            0x0                 0
+rbx            0x31                49
+rcx            0xf                 15
+rdi            0x3c                60
+
+rax            0x0                 0
+rbx            0x40                64
+rcx            0x11                17
+rdi            0x3c                60
+
+
+info registers rax rbx rcx rdi
+layout regs

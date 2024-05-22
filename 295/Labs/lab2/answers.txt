@@ -1,11 +1,10 @@
 Q1) In a few words, describe the value returned by provided do_something function. (This should be a natural sentence that describes the result, not a mechanical description of what the code does, and not "64" because that's what's returned for a specific argument: you should describe what the function returns in general).
 
-Given an input number, the function do_something will continiously loop over loop_top until the the value in rbx matches (or greater than) the original (in this case register rdi) input (otherwise it will jump back to the loop and do another increment to register rbx by 2 using an intermediary reigster rcx) and finally when the condition is met, breaks the loop and finally returns the value in register rbx (by setting the value in register rax). 
+Given an input number, the function do_something will continiously loop over loop_top until the the value in rbx matches (or greater than) the original rdi input (otherwise it will jump back to the loop and do another increment to registers rbx and rcx (rbx = 2rcx+rcx)) and finally when the condition is met, breaks the loop and finally returns the value in register rbx. 
 
 Q2) In your calculate function, why did you choose a preserved/non-preserved register for the different partial results?
 
+I used preserved registers (r12, r13, r14, r15) to save intermediary calculations of my function (which get reset at the end of the function). Since these registers weren't being modified by the f function, I needed to use these preserved registers to store my intermediary steps.
+I used the non-preserved register rax (I could have also chosen other non-preserved registers) on my final calculation directly since there were no other instructions once it reached the final (a+b+c+d) step. At this step of the code, I can guarantee that the register rax would not be modified, and I can use it to do intermediary steps and set my return value as well.
 
-// compile command
-gcc -Wall -Wpedantic -std=c17 -march=haswell -c helpers.c \
-&& as --warn -g unknown.S -o unknown.o \
-&& ld helpers.o unknown.o
+NOTE: I could have also used a non-preserved register instead of r15 since I can guarantee that no other instructions would have modified my registers at that step.

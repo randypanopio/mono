@@ -42,6 +42,11 @@ private:
                                                     // Feel free to change this MAX_ELEMENTS value.
     Profile * elements[MAX_ALPHA];                  // MAX_ALPHA arrays of elements 
     unsigned int elementCount[MAX_ALPHA];           // Current element count in each of the MAX_ALPHA arrays of elements
+   
+    Profile* profileArray[MAX_ALPHA][MAX_ELEMENTS]; // Multi dimensional array to keep track of stored elements, separated by first letter, eg arr[0] = returns the array of elements starting with a, arr[1] = array of elements starting with b, and so on.
+   
+    unsigned int totalElementCount = 0; // tracks the TOTAL ammount of elements (profiles) stored
+    unsigned int alphabeticalListCount[MAX_ALPHA]; // an array that keeps track of ammount of entries based in the first letter. Eg, arr[0] = count of entries starting with a, arr[1] = count b, and so on.
 
 
 /* 
@@ -49,7 +54,7 @@ private:
  */
  
     // Utility method(s)
-
+    unsigned int getCharIndex(char c) const;
       
 public:
 
