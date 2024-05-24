@@ -82,7 +82,7 @@ bool MyADT::insert(const Profile& newElement) {
     // and another iteartion for the insertion step (with a possible resize)
     // which is another O(m), the overall efficiency is O(m)
     if (search(newElement) == nullptr){
-        int char_index = getCharIndex(newElement.getUserName()[0]);
+        int char_index = getCharIndex(newElement.getSearchKey());
         // TODO replace with getlength of the inner dynamic list
         // linear insert to first open position
         for (int i = 0; i < 5; i++) {
@@ -130,7 +130,7 @@ Profile* MyADT::search(const Profile& target) {
     cout << "MyADT::search executed" << endl; 
     // time efficiency is O(m) as it will do a linear scan from the indexed inner array of the letter subgroup
 
-    int char_index = getCharIndex(target.getUserName()[0]);
+    int char_index = getCharIndex(target.getSearchKey());
     // TODO replace with getlength of the inner dynamic list
     for (int i = 0; i < 5; i++) {
         auto profile = profileArray[char_index][i];
