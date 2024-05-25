@@ -15,7 +15,6 @@
  * Last modified on: May 2024
  */
 
-
 #include <cstddef>
 #include <iostream>
 #include <cctype>
@@ -24,9 +23,6 @@
 
 using std::cout;
 using std::endl;
-
-
-// Profile* profilesArray[MyADT::MAX_ALPHA][5];
     
 // Default constructor.
 MyADT::MyADT() {
