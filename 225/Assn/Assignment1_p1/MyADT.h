@@ -44,10 +44,7 @@ private:
     unsigned int elementCount[MAX_ALPHA];           // Current element count in each of the MAX_ALPHA arrays of elements
    
     Profile* profileArray[MAX_ALPHA][MAX_ELEMENTS]; // Multi dimensional array to keep track of stored elements, separated by first letter, eg arr[0] = returns the array of elements starting with a, arr[1] = array of elements starting with b, and so on.
-   
     unsigned int totalElementCount = 0; // tracks the TOTAL ammount of elements (profiles) stored
-    unsigned int alphabeticalListCount[MAX_ALPHA]; // an array that keeps track of ammount of entries based in the first letter. Eg, arr[0] = count of entries starting with a, arr[1] = count b, and so on.
-
 
 /* 
  * You can add private methods to this class, if needed.
@@ -84,7 +81,7 @@ public:
     // Precondition: newElement must not already be in the data collection MyADT.  
     // Postcondition: newElement inserted, MyADT's class invariants are still true
 	//                and the appropriate elementCount has been incremented.
-	// Time Efficiency: 
+	// Time Efficiency: O(m)
     bool insert(const Profile& newElement);
 
     // Description: Removes an element from the data collection MyADT. 
@@ -92,7 +89,7 @@ public:
     // Precondition: The data collection MyADT is not empty.  
     // Postcondition: toBeRemoved (if found) is removed, MyADT's class invariants are still true
     //                and the appropriate elementCount is decremented.
-	// Time Efficiency: 
+	// Time Efficiency: O(m)
     bool remove(const Profile& toBeRemoved);
 	
     // Description: Removes all elements from the data collection MyADT. 
@@ -100,18 +97,18 @@ public:
     // Postcondition: MyADT reverts back to its initialization state, i.e., 
     //                the state it is in once it has been constructed (once
     //                the default constructor has executed). 
-	// Time Efficiency: 
+	// Time Efficiency: O(m*n)
     void removeAll();
    
     // Description: Searches for target element in the data collection MyADT. 
     //              Returns a pointer to the element if found, otherwise, returns nullptr.
 	// Precondition: The data collection MyADT is not empty. 
-    // Time Efficiency: 	
+    // Time Efficiency: O(m)
     Profile * search(const Profile& target);
     
     // Description: Prints all elements stored in the data collection MyADT in ascending order of search key.
     // ***For Testing Purposes - Not part of this class' public interface.***
-    // Time Efficiency: 
+    // Time Efficiency: O(m*n)
 	void print();
    
 
