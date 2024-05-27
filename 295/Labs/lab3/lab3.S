@@ -6,16 +6,18 @@
     .text
 
 abs_value:
-    # compare to zero
-    test %rdi, %rdi
-    jl negate
+    # do the comparison in rax, can use it for calc in place
     mov %rdi, %rax
+    # compare to zero
+    test %rax, %rax
+    # run an abs val to rax if number is negative
+    jl negate
     ret
 
 negate:
-    # negates the current rdi register
-    # since only abs_value calls me, its fine to return and keep needed value in rdi
-    neg %rdi
+    # negates the current rax register
+    # since only abs_value calls me, its fine to return and keep needed value in rax
+    neg %rax
     ret
 
 

@@ -1,8 +1,16 @@
+conditional branching
+
+abs_value
+
+jump with negate to negate a value if value is negative, otherwise maintain inp rge to rax
 
 
-backtrace when factorial is deep in its recursion
-watch c or watch v in the to_base function to see how the string representation is built.
-print (char*)pos in to_base to see the string representation (partially) built.
+power2
 
-Take a screenshot showing your gdbtui session with…
+hailstone
+
+this is deff a recursive function
+pseudocode in python
+
+NOTE should keep a name address for the base case of my recursive functions
 
