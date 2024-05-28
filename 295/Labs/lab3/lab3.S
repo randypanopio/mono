@@ -5,6 +5,7 @@
     .global abs_value, power2, hailstone_length
     .text
 
+# ---- absolute value ---- 
 abs_value:
     # do the comparison in rax, can use it for calc in place
     mov %rdi, %rax
@@ -20,21 +21,49 @@ negate:
     neg %rax
     ret
 
+# ---- absolute value end---- 
 
+# ---- powers of two ---- 
 power2:
-    # loop up to 2^n
-    # do a compare
-    jle double
+    # check rdi for recursive step
+    test %rdi, %rdi
+    jne recurse_double
+
+double_base_case:
+    mov $1, %rax
     ret
 
-double:
-    mov %rdi, %r8
-    add %rdi, %r8
-    mov %r8, %rax
-    # finish this
+recurse_double:
+    push %rdi
+    sub $1, %rdi
+    call power2
+    pop %rdi
+    mul %rdi
     call print_uint64
     ret
 
+factorial:
+    # check rdi for recursive step
+    test %rdi, %rdi
+    jne fact_recursive_case
+
+fact_base_case:
+    mov $1, %rax
+    ret
+
+fact_recursive_case:
+    push %rdi
+    sub $1, %rdi
+    call factorial
+    pop %rdi
+    mul %rdi
+    ret
+# ---- powers of two end ---- 
+
+# ---- haildstone sequence ---- 
 hailstone_length:
     # do nothing
     ret
+
+
+# ---- haildstone sequence end ---- 
