@@ -32,6 +32,7 @@ double:
     add %rdi, %r8
     mov %r8, %rax
     # finish this
+    call print_uint64
     ret
 
 hailstone_length:
