@@ -21,59 +21,60 @@ negate:
     neg %rax
     ret
 
-# ---- absolute value end---- 
-
 # ---- powers of two ---- 
-asdd:
-  # check rdi for recursive step
-  test %rdi, %rdi
-  jne foo
-
-bar:
-  mov $1, %rax
-  ret
-
-foo:
-  # should call power2 at some point for my recursive case
-  call print_uint64
-  ret
-
 power2:
     # Base case: if rdi (n) is 0, print 1 and return
+    # calculate power2 directly then iterate towards it
+
+    # jump to case zero if input is zero
     test %rdi, %rdi
-    jne recurse_double
+    je case_zero
 
-double_base_case:
-    mov $1, %rsi        # Value to print (1)
-    call print_uint64   # Call print_uint64
-    ret                 # Return from the function
+    # store on r8 calc value, starting from 1 to 2^n
+    mov $1, %r8
+    # print base case before calculating
+    call print
 
-recurse_double:
-    push %rdi           # Save the current n on the stack
-    dec %rdi            # Decrement n (n-1)
-    call power2         # Recursive call to power2(n-1)
-    pop %rdi            # Restore the original n from the stack
+calculate_power2:
+    # calculate up to 2^n, decrementing rdi and storing iterations on r8
+    test %rdi, %rdi
+    jne shift_to_n
+    ret
 
-    # Calculate 2^n by doubling 2^(n-1)
-    mov $1, %rsi        # Initialize the value to 1
-    # shl %rdi, %rsi      # Calculate 2^n by left shifting 1 by n bits
-    mov %rdi, %rsi
-    add %rdi, %rsi
+shift_to_n:
+    push %rdi
+    dec %rdi
+    shl %r8
+    call print
+    call calculate_power2
+    pop %rdi
+    ret
 
-    call print_uint64   # Call print_uint64 to print 2^n
-    ret                 # Return from the function
-# ---- powers of two end ---- 
+print:
+    # store to temp register r10 val of rdi to call print function
+    mov %rdi, %r10
+    mov %r8, %rdi
+    call print_uint64
+    mov %r10, %rdi
+    ret
+
+case_zero:
+    mov $1, %rdi
+    call print_uint64
+    ret
 
 # ---- haildstone sequence ---- 
 hailstone_length:
-    # Base case: if n == 1, return 0
-    cmp $1, %rdi        # Compare n (in %rdi) with 1
-    je base_case        # If n == 1, jump to base_case
+    # Compare n (in %rdi) with 1, if not eq 1, continue calculation
+    cmp $1, %rdi
+    # If n == 1, jump to base_case
+    je base_case
 
-    # Recursive case: if n is even or odd
-    push %rdi           # Save the current value of n on the stack
+    # Save the current value of n on the stack
+    push %rdi           
 
-    # do bitewise and to check if rdi is even
+    # proceed ro branching
+    # do bitwise and to check if rdi is even
     test $1, %rdi
     jz even_case
 
@@ -84,22 +85,24 @@ odd_case:
     add $1, %rdi
     # recurse
     call hailstone_length
+    # jump and add last case of calculation
     jmp common_case
 
 even_case:
     # do n//2 to rdi
     shr $1, %rdi
     call hailstone_length
+    # jump and add last case of calculation
+    jmp common_case
 
 common_case:
-    # 
-    pop %rdi            # Restore the original value of n
-    add $1, %rax        # Add 1 to the result of the recursive call
-    ret                 # Return the result
+    # restore pushed rdi value. "pop from the call stack", and return 
+    pop %rdi
+    add $1, %rax
+    ret
 
 base_case:
     # set rax to zero on base case
     mov $0, %rax
     ret
 
-# ---- haildstone sequence end ---- 
