@@ -254,7 +254,6 @@ Profile* MyADT::search(const Profile& target) {
 // Time Efficiency: O(m*n) iterating over the entire arrays
 void MyADT::print() {
     // cout << "MyADT::print executed" << endl; 
-
     // our profiles should be in sorted order
     for (unsigned int i = 0; i < MAX_ALPHA; ++i) { 
         for (unsigned int j = 0; j < MAX_ELEMENTS; ++j) { 
