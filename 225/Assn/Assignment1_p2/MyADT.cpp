@@ -84,7 +84,7 @@ unsigned int MyADT::getElementCount() const {
 //                and the appropriate elementCount has been incremented.
 // Time Efficiency: O(m)
 bool MyADT::insert(const Profile& newElement) {
-    cout << "MyADT::insert executed" << endl; 
+    // cout << "MyADT::insert executed" << endl; 
     // time efficiency is O(m), as despite doing a binary search: O(logm)
     // and inserting up to the limit of the array: O(m)
     // checking the correct sort order and shifting elements: O(m)
@@ -92,28 +92,30 @@ bool MyADT::insert(const Profile& newElement) {
 
     if (search(newElement) == nullptr) { // check if profile exists before insertion
         unsigned int char_index = getCharIndex(newElement.getSearchKey());
-        string useToSort = newElement.getUserName(); // refactor to use this to correctly insert the element in the array in the correct order.
 
         // check if there is available space
         if (elementCount[char_index] < MAX_ELEMENTS) {
             // insert the new element in to correct sorted order
-            int sortPos = elementCount[char_index]; // assume the insert position is at the end of the current array
+            unsigned int sortPos = elementCount[char_index]; // assume the insert position is at the end of the current array
+            // cout << "MyADT::insert initial sortPos set to: " << sortPos << endl; 
 
-            for (unsigned int i = 0; i < MAX_ELEMENTS; ++i) {
+            for (unsigned int i = 0; i < elementCount[char_index]; ++i) {
                 // compare on each iteration if the new element to where it should be inserted
+                auto toInsertUserName = newElement.getUserName();
                 auto currentUserName = profileArray[char_index][i]->getUserName();
-                if (useToSort < currentUserName){
+                if (toInsertUserName < currentUserName){
                     // found the correct insert position, update the insert index
                     sortPos = i;
                     break;
                 }
             }
+            // cout << "MyADT::insert final sortPos set to: " << sortPos << endl; 
 
             // shift remaining elements to the right
             // iterate from the end of current end of array and shift right
             // can assume the array is not full since we already checked if there is space in our array
-            for (unsigned int i = 0; i > sortPos; --i){
-                cout << "MyADT::insert shifting profile: " << profileArray[char_index][i - 1] << "at position[" << i-1 << "], to: position[" << i << "]"<< endl; 
+            for (unsigned int i = elementCount[char_index]; i > sortPos; --i){
+                // cout << "MyADT::insert shifting profile: " << profileArray[char_index][i - 1] << "at position[" << i-1 << "], to: position[" << i << "]"<< endl;
                 profileArray[char_index][i] = profileArray[char_index][i - 1];
             }
 
@@ -121,20 +123,14 @@ bool MyADT::insert(const Profile& newElement) {
             profileArray[char_index][sortPos] = new Profile(newElement);
             elementCount[char_index]++;
             totalElementCount++;
-        }
-
-        // iterate over the inner array and insert if space is available
-        // for (unsigned int i = 0; i < MAX_ELEMENTS; ++i) {
-        //     if (profileArray[char_index][i] == nullptr) {
-        //         profileArray[char_index][i] = new Profile(newElement);
-        //         elementCount[char_index]++;
-        //         totalElementCount++;
-        //         // cout << "MyADT::insert inserted profile (username):" << newElement.getUserName() << "at position[" << char_index << "][" << i << "]"<< endl; 
-        //         return true;
-        //     }
+            // cout << "MyADT::insert successfully inserted element. Below is resulting state" << endl; 
+            return true;
+        } 
+        // else {
+        //     cout << "MyADT::insert array charset: " << newElement.getSearchKey() << ", is full. Aborting insertion" << endl; 
         // }
     } 
-    cout << "MyADT::insert failed to insert profile (username):" << newElement.getUserName() << endl; 
+    // cout << "MyADT::insert failed to insert profile (username):" << newElement.getUserName() << endl; 
     // profile already stored, or something went wrong, return false
     return false;
 }  
@@ -146,7 +142,7 @@ bool MyADT::insert(const Profile& newElement) {
 //                and the appropriate elementCount is decremented.
 // Time Efficiency: O(m)
 bool MyADT::remove(const Profile& toBeRemoved) {
-    cout << "MyADT::remove executed" << endl; 
+    // cout << "MyADT::remove executed" << endl; 
 
     // get the index for the subarray
     auto char_index = getCharIndex(toBeRemoved.getSearchKey());
@@ -215,9 +211,9 @@ void MyADT::removeAll() {
 // Precondition: The data collection MyADT is not empty.
 // Time Efficiency: O(logm)
 Profile* MyADT::search(const Profile& target) {
-    cout << "MyADT::search executed" << endl; 
+    // cout << "MyADT::search executed" << endl;
     // since the array is sorted by username, we can do binary search using that aparm to find element, cutting search time down to O(logm)
-    // adapted from GFG binary search iterative aproach: https://www.geeksforgeeks.org/binary-search/
+    // adapted from lecture's binary search pesudocode
 
     // initialize variables to entire length of the array for our binary search space
     int char_index = getCharIndex(target.getSearchKey());
@@ -235,7 +231,7 @@ Profile* MyADT::search(const Profile& target) {
         }
 
         if (profile->getUserName() == target.getUserName()) {
-            cout << "MyADT::search target: " << profile->getUserName() << ", found!" << endl; 
+            // cout << "MyADT::search target: " << profile->getUserName() << ", found!" << endl; 
             return profile; // profile found
         }
 
@@ -248,17 +244,7 @@ Profile* MyADT::search(const Profile& target) {
             high = mid - 1;
         }
     }
-
-    // for (unsigned int i = 0; i < MAX_ELEMENTS; ++i) { // can iterate over MAX since this loop will return once the target is found
-    //     auto profile = profileArray[char_index][i];
-    //     // NOTE instead of comparing by pointers if they are the exact same object
-    //     // I will assume to accept copied objects as valid, so will compare by the unique usernames isntead.
-    //     if (profile != nullptr){
-    //         if (target.getUserName() == profile->getUserName()){
-    //             return profile;
-    //         }
-    //     }
-    // }
+    // cout << "MyADT::search unable to find" << endl; 
     return nullptr;
 }  
 
@@ -270,8 +256,11 @@ void MyADT::print() {
     // cout << "MyADT::print executed" << endl; 
 
     // our profiles should be in sorted order
-    for (unsigned int i = 0; i < MAX_ALPHA; ++i) { // iterate over all characters
-        for (unsigned int j = 0; j < elementCount[i]; ++j) { // iterate up to known last set profile
+    for (unsigned int i = 0; i < MAX_ALPHA; ++i) { 
+        for (unsigned int j = 0; j < MAX_ELEMENTS; ++j) { 
+            // if (i < 1) {
+            //     cout << "profile position: [" << i << "][" << j << "]:" << endl; 
+            // }
             // Print only non-null profiles
             if (profileArray[i][j] != nullptr) {
                 cout << *profileArray[i][j];

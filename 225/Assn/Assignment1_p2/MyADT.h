@@ -38,7 +38,7 @@ private:
  */
  
     constexpr static unsigned int MAX_ALPHA = 26;   // 26 letters in the alphabet 
-    constexpr static unsigned int MAX_ELEMENTS = 5; // Small capacity so can test when data collection becomes full 
+    constexpr static unsigned int MAX_ELEMENTS = 3; // Small capacity so can test when data collection becomes full 
                                                     // Feel free to change this MAX_ELEMENTS value.
     Profile * elements[MAX_ALPHA];                  // MAX_ALPHA arrays of elements 
     unsigned int elementCount[MAX_ALPHA];           // Current element count in each of the MAX_ALPHA arrays of elements
