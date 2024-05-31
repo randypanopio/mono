@@ -91,6 +91,22 @@ int main() {
     adt.print();
     cout << "removeAll testing completed. If no profiles were printed, test was succesful. MyADT has been reset to initial state." << endl;
 
+    // Test with new profile
+    cout << endl << "Testing inserting new set of profiles and printing." << endl;
+    Profile p_xiao("abcreally", "Xiao Wong", "xw123@coldmail.com", "August 2 2003");
+    Profile p_louis("ihatethis!", "Louis Pace", "louis@nowhere.com", "May 25 2001");
+    Profile p_marie("marieLower", "Marie Lower", "marie@somewhere.ca", "July 21 1999");
+    Profile p_arwinder("mrvropdgs56", "Arwinder Singh", "meow@telthem.com", "December 17 1998");
+    assert(adt.insert(p_xiao) == true);
+    assert(adt.insert(p_louis) == true);
+    assert(adt.insert(p_marie) == true);
+    assert(adt.insert(p_arwinder) == true);
+    assert(adt.getElementCount() == 4);
+    Profile* searchResult2 = adt.search(p_xiao);
+    assert(searchResult2 != nullptr);
+    assert(searchResult2->getUserName() == "abcreally");
+    adt.print();    
+    cout << endl << "If all profiles [abcreally, ihatethis!, marieLower, mrvropdgs56] appear in alphabetic order, this test case passed." << endl;
     cout << endl << endl << "All assertions passed! MyADTTestDriver completed." << endl;
     return 0;
 }

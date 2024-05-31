@@ -100,10 +100,9 @@ bool MyADT::insert(const Profile& newElement) {
             // cout << "MyADT::insert initial sortPos set to: " << sortPos << endl; 
 
             for (unsigned int i = 0; i < elementCount[char_index]; ++i) {
-                // compare on each iteration if the new element to where it should be inserted
-                auto toInsertUserName = newElement.getUserName();
-                auto currentUserName = profileArray[char_index][i]->getUserName();
-                if (toInsertUserName < currentUserName){
+                // compare on each iteration if the new element to where it should be inserted, use overloaded operators
+                bool inPosition = *profileArray[char_index][i] > newElement; // sort by ascending alphabetical order (eg a->z), inverse comparison if descending (z->a)
+                if (inPosition){
                     // found the correct insert position, update the insert index
                     sortPos = i;
                     break;
@@ -154,12 +153,10 @@ bool MyADT::remove(const Profile& toBeRemoved) {
     // NOTE: removal SHOULD still maintian sort order of the existing elements.
     for (unsigned int i = 0; i < elementCount[char_index]; ++i) { // iterate only up to valid 
         if (profileArray[char_index][i] != nullptr ) { // check if current ref is valid
-            
-            // NOTE using comparison by username, instead of pointers.
-            // cases where the profile pointer actually is the profile we want to remove, but is a different instance
-            // note the code below would be what I could use if I were to compare by pointers
-            // if (*profileArray[char_index][i] == toBeRemoved)
-            if (profileArray[char_index][i]->getUserName() == toBeRemoved.getUserName()){ // check if the current is the profile we want to remove
+
+            // compare profile using overloaded operators
+            bool matchedProfile = *profileArray[char_index][i] == toBeRemoved;
+            if (matchedProfile){ // check if the current is the profile we want to remove
                 // Element found, deallocate memory and remove it
                 // cout << "MyADT::remove profile: " << toBeRemoved.getName() << ", found! deleting." << endl; 
                 delete profileArray[char_index][i];
@@ -230,7 +227,7 @@ Profile* MyADT::search(const Profile& target) {
             break; // If we encounter a null, the array elements end here
         }
 
-        if (profile->getUserName() == target.getUserName()) {
+        if (*profile == target) {
             // cout << "MyADT::search target: " << profile->getUserName() << ", found!" << endl; 
             return profile; // profile found
         }
@@ -238,7 +235,7 @@ Profile* MyADT::search(const Profile& target) {
         // our mid element was not our target, continue with iteration
         // bisect array in half limiting our search space in half for each iteration
         // by selecting which "half" of the sorted array our element should be in 
-        if (profile->getUserName() < target.getUserName()) {
+        if (*profile < target) { // use overloaded operator for comparison
             low = mid + 1;
         } else {
             high = mid - 1;
