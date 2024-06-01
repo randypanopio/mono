@@ -52,6 +52,7 @@ private:
  
     // Utility method(s)
     unsigned int getCharIndex(char c) const;
+    void initializeSubArray();
       
 public:
 

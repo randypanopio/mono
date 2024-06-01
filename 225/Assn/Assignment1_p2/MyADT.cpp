@@ -278,4 +278,8 @@ unsigned int MyADT::getCharIndex(char c) const {
     }
 }
 
+void MyADT::initializeSubArray(){
+
+}
+
 //  End of implementation file
