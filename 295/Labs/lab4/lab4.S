@@ -44,38 +44,26 @@ not_prime:
 
 # ---- largest_power_unsigned ---- 
 largest_power_unsigned:
+    # begin comparison calc using rax
     mov %rdi, %rax
-    mov $1, %r8
+    # store n on r9 for future multiplication
     mov %rdi, %r9
+    mov $0, %r10
 
 power_loop:
-    # If r8 >= rdi (reached final divisor), then is prime
-    cmp %rdi, %r8
-    jge power_end
-
     # store calculated value to rax
-    # temporarily store rax to 
-    # multiply n to itself again, by keeping track of original n value
+    # temporarily store current rax to r10 (previous iter before mul)
+    mov %rax, %r10
+    # multiply n to itself again, mul mults it into rax implicitly
+    mul %r9
+    jo power_overflow
 
-    # rdi/r8 -> remainder in rdx, quotion in rax
-    mov $0, %rdx
-    mov %rdi, %rax
-    div %r8
-
-    # check remainder if zero, if so it was divisible so not prime
-    test %rdx, %rdx
-    je not_prime
-
-    # Increment r8 iterator and loop
-    inc %r8
-    jmp power_loop
-    # do iterative approach and do a jo check 
-    ret
-
-power_end:
+    # didnt overflow, proceed with iteration
+    jmp power_loop 
     ret
 
 power_overflow:
+    mov %r10, %rax
     ret
 
 # ---- overflowing_subtract ---- 
@@ -131,13 +119,13 @@ recursive_case:
     # recurse with (a-1, b-1)
     call dumb
 
-    # restore stack pointer
-    pop %rdi
+    # instruct pop from stack, restoring a, b values
     pop %rsi
+    pop %rdi
 
-    # handle remaining calculation
-    mov %rdi, %r8 # a
-    add %rdi, %r8 # a+a
-    add %rsi, %r8 # a+a+b
-    add %r8, %rax # a+a+b+r
+    # Perform the final calculation: a + a + b + recursive_result
+    mov %rdi, %r8   # Move the value of a (rdi) into r8
+    add %rdi, %r8   # r8 = a + a
+    add %rsi, %r8   # r8 = a + a + b
+    add %r8, %rax   # rax = a + a + b + recursive_result
     ret
