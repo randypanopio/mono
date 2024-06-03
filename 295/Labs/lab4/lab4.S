@@ -7,14 +7,16 @@
 
 # ---- is_prime ---- 
 is_prime:
-    # handle base cases 1 and 2
+    # handle cases 2, and <1
     cmp $2, %rdi
-    jl not_prime
+    je prime
+    cmp $1, %rdi
+    jle not_prime
 
     # iterating using r8, starting from 2
     mov $2, %r8
 
-check_loop:
+prime_loop:
     # If r8 >= rdi (reached final divisor), then is prime
     cmp %rdi, %r8
     jge prime 
@@ -30,7 +32,7 @@ check_loop:
 
     # Increment r8 iterator and loop
     inc %r8
-    jmp check_loop
+    jmp prime_loop
 
 prime:
     mov $1, %rax
@@ -43,8 +45,37 @@ not_prime:
 # ---- largest_power_unsigned ---- 
 largest_power_unsigned:
     mov %rdi, %rax
+    mov $1, %r8
+    mov %rdi, %r9
 
+power_loop:
+    # If r8 >= rdi (reached final divisor), then is prime
+    cmp %rdi, %r8
+    jge power_end
+
+    # store calculated value to rax
+    # temporarily store rax to 
+    # multiply n to itself again, by keeping track of original n value
+
+    # rdi/r8 -> remainder in rdx, quotion in rax
+    mov $0, %rdx
+    mov %rdi, %rax
+    div %r8
+
+    # check remainder if zero, if so it was divisible so not prime
+    test %rdx, %rdx
+    je not_prime
+
+    # Increment r8 iterator and loop
+    inc %r8
+    jmp power_loop
     # do iterative approach and do a jo check 
+    ret
+
+power_end:
+    ret
+
+power_overflow:
     ret
 
 # ---- overflowing_subtract ---- 

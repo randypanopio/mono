@@ -32,7 +32,7 @@ power2:
 
     # store on r8 calc value, starting from 1 to 2^n
     mov $1, %r8
-    # print base case before calculating
+    # print case 1 before calculating
     call print
 
 calculate_power2:
@@ -42,6 +42,7 @@ calculate_power2:
     ret
 
 shift_to_n:
+    # do increment of iteration using rdi and shift left for doubling our value (on r8)
     push %rdi
     dec %rdi
     shl %r8
