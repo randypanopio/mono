@@ -123,9 +123,9 @@ recursive_case:
     pop %rsi
     pop %rdi
 
-    # Perform the final calculation: a + a + b + recursive_result
-    mov %rdi, %r8   # Move the value of a (rdi) into r8
+    # Perform the final calculation: a + a + b + rec
+    mov %rdi, %r8   # use r8 for calc
     add %rdi, %r8   # r8 = a + a
     add %rsi, %r8   # r8 = a + a + b
-    add %r8, %rax   # rax = a + a + b + recursive_result
+    add %r8, %rax   # rax = a + a + b + rec
     ret
