@@ -1,0 +1,15 @@
+# By Randy Panopio
+# ID: 301294517
+# rpanopio@sfu.ca 
+
+1) What was your test setup (i.e. what CPU model/generation did you test with? Desktop or laptop or other?)
+
+
+2) What were your results: how much faster (likely expressed as a fraction/percent) is each #2 implementation? (There is no exact answer here: results will vary by run, but give your best estimate of the "truth".)
+
+
+3) In each case, the C implementation (#3) was described with the "slow" algorithm. How did they compare to the "fast" algorithm after the optimizer processed them?
+
+
+[optional] Do you see any pattern to when mul1 is faster/slower than mul2 on different processors/computers/whatever? Feel free to share timing results (but not solutions) with others in the course if it helps form a pattern.
+
