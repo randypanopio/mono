@@ -6,33 +6,47 @@
     .text
 
 fibonacci:
-    
-    # keep calculations in rdi
+    # Check if n <= 1
     cmp $1, %rdi
-    jg recursive_case
-    # Base case: if n <= 1, return n
-    mov %rdi, %rax
-    ret
+    jle base_case
 
-recursive_case:
-    # Save n on the stack
+    # Save %rdi and %rax (rdi->n, rax->intermediate result) on the stack
     push %rdi
+    push %rax
 
-    # Calculate fibonacci(n-1)
-    dec %rdi
+    # Recursive case: fibonacci(n-1)
+    mov %rdi, %rsi
+    sub $1, %rsi
+    mov %rsi, %rdi # Move n-1 to %rdi (argument for the recursive call)
     call fibonacci
-    # Save the result of fibonacci(n-1) on the stack
-    mov %rax, %rbx
 
-    # Restore n and calculate fibonacci(n-2)
+    mov %rax, %r8 # Store result of fibonacci(n-1) in %r8
+
+    # Restore %rdi (n) and save %rax on the stack
+    pop %rax
     pop %rdi
-    sub $2, %rdi
+    push %rax
+    push %r8
+
+    # Recursive case: fibonacci(n-2)
+    mov %rdi, %rsi
+    sub $2, %rsi
+    mov %rsi, %rdi # Move n-2 to %rdi (argument for the recursive call)
     call fibonacci
 
     # Add the results of fibonacci(n-1) and fibonacci(n-2)
-    add %rbx, %rax
+    pop %r8 # Retrieve result of fibonacci(n-1) 
+    add %r8, %rax # Add the results, rax will now have results of fibonacci(n-2)
 
+    # Clean up the stack and return
+    pop %r10
     ret
+
+base_case:
+    mov %rdi, %rax
+    ret
+    # this recursion solution came to me in a dream...
+    # i have no idea how i managed to solve this
 
 polynomial1:
     # a = a*x*x*x 
@@ -96,7 +110,7 @@ mul1:
 
 mul2:
     # rax = n
-    mov %rdi, %rax       # Copy the value of rdi to rax
+    mov %rdi, %rax # Copy the value of rdi to rax
     # n = n * 2^16 using shl
     shl $16, %rax
     # n = n * 2^16 + 1 (equating: n * 65537)
