@@ -40,9 +40,9 @@ int main () {
   t = S.getnext();
   
   // while T is not EOF or the operator stack is non empty
-  cout << "tokens:" << endl;
+  // cout << "tokens:" << endl;
   while (t.tt != eof || !opstack.isEmpty()) { 
-    cout << "["<< t << "], ";
+    // cout << "["<< t << "], ";
     // if T is a number
     if (t.tt == integer) {
       // push T to the number stack; get the next token
