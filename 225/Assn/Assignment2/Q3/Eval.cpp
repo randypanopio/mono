@@ -67,7 +67,7 @@ int main () {
       else {
         // pop the top two numbers and the top operator
         Token rightNum = numstack.pop();
-        Token leftNum = numstack.pop();
+        Token leftNum = numstack.pop(); // first number that got pushed is deeper in the stack, so this is our "left" number
         Token op = opstack.pop();
         // perform the operation
         Token resultToken = calculateToken(leftNum, op, rightNum);
@@ -114,9 +114,9 @@ int main () {
         opstack.push(t);
         t = S.getnext();
       }
-      t = S.getnext();
     } else {
-      t = S.getnext(); // Get the next token for unknown or handled cases
+      // t = S.getnext(); // Get the next token for unknown or handled cases
+
     }
   }
   cout << endl;
