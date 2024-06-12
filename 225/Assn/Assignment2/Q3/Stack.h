@@ -11,6 +11,7 @@
 
 /* Please, refer to Question 1 for Stack method documentation. */
 
+#include <cstddef>
 template <class T>
 class Stack {
   class Node {

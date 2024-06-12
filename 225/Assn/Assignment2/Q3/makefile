@@ -1,3 +1,4 @@
+all: infixeval
 
 infixeval:	Scanner.o Eval.o
 	g++ -o infixeval Scanner.o Eval.o 

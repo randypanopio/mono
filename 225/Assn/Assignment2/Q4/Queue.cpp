@@ -5,8 +5,8 @@
  *
  * Class Invariant: Queue maintained in FIFO order.
  *
- * Author:
- * Date:
+ * Author: Randy Panopio
+ * Date: June 2024
  */
  
 #include <iostream>
