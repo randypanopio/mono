@@ -1,0 +1,5 @@
+
+
+strlen_mine:
+
+    ret
