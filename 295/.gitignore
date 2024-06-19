@@ -16,3 +16,6 @@
 
 # ignore intermediary files 
 *.i
+
+*.zip
+*.gdbm

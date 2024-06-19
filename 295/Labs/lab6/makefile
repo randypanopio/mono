@@ -1,11 +1,10 @@
-all: comp link
+all: p1 p2
 
-comp:
-	gcc -Wall -Wpedantic -std=c17 -march=haswell -O3 -c others.c lab5.S
+p1:
+	gcc -Wall -Wpedantic -std=c17 -march=haswell -O3 tests.c lab6.S -o p1.out
 
-
-link:
-	gcc -Wall -Wpedantic -std=c17 -march=haswell -O3 others.o lab5.o timing.c
+p2:
+	g++ -Wall -Wpedantic -std=c++14 -march=haswell -O3 utf8.c utf8-test.c -o p2.out
 
 clean: 
-	rm -f *.out *.o
+	rm -f *.out *.o p1 p2 *.html
