@@ -7,7 +7,7 @@
  * Class invariant: Duplicated elements are not allowed.
  *                  It is always a BST.
  * 
- * Author: Inspired from our textbook
+ * Author: Randy Panopio
  * Date of last modification: June 2024
  */
  
