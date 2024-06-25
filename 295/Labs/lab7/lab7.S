@@ -6,7 +6,7 @@
 
 .data
 randint_seed:
-    .quad 0
+    .quad 3
 randint_multiplier:
     .quad 6364136223846793005
 randint_adder:
@@ -16,8 +16,12 @@ randint_adder:
 
 # will probaly learn modulo in lecture
 randint:
-    movabs $6364136223846793005, %r8
-    mov $3, %rax
+    mov randint_seed(%rip), %rax
+    movabs $6364136223846793005, %rbx
+    mul %rbx
+    movabs $1442695040888963407, %rbx
+    add %rbx, %rax
+    mov %rax, randint_seed(%rip)
     ret
 
 fill_array:
@@ -84,7 +88,7 @@ dot_struct_loop:
     jge loop_done
     # ([0-63,64-127],[128-x,y-z])
     # n=0,            n=1
-    
+
     # get products
     # (starting address, n offset * word size (8 for 64bit))
     mov (%rdi, %rcx, 8), %r8 # first int64_t
