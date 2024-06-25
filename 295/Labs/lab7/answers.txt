@@ -23,5 +23,35 @@ gcc -Wall -Wpedantic -std=c17 -march=haswell tests.c lab7.S -o main
 gcc -Wall -Wpedantic -std=c17 -march=haswell lab7c.c timing.c lab7.S -o timing
 
 2) How did the running times compare for the various dot product implementations?
+below are results:
+without any optimization flags:
+                          warmup(5) calculated -1599990000000000 in  3.94 ns/elt
+            dot(arr1, arr2, LENGTH) calculated -7109144345354822656 in  0.42 ns/elt
+          dot_c(arr1, arr2, LENGTH) calculated -7109144345354822656 in  1.07 ns/elt
+       dot_struct(arr_pair, LENGTH) calculated -7109144345354822656 in  0.46 ns/elt
+     dot_struct_c(arr_pair, LENGTH) calculated -7109144345354822656 in  1.15 ns/elt
 
+with optimization -O1
+                          warmup(5) calculated -1599990000000000 in  1.04 ns/elt
+            dot(arr1, arr2, LENGTH) calculated -7109144345354822656 in  0.35 ns/elt
+          dot_c(arr1, arr2, LENGTH) calculated -7109144345354822656 in  0.28 ns/elt
+       dot_struct(arr_pair, LENGTH) calculated -7109144345354822656 in  0.43 ns/elt
+     dot_struct_c(arr_pair, LENGTH) calculated -7109144345354822656 in  0.28 ns/elt
+
+with optimization -O2
+                          warmup(5) calculated -1599990000000000 in  0.00 ns/elt
+            dot(arr1, arr2, LENGTH) calculated -7109144345354822656 in 218.05 ns/elt
+          dot_c(arr1, arr2, LENGTH) calculated -7109144345354822656 in 535.41 ns/elt
+       dot_struct(arr_pair, LENGTH) calculated -7109144345354822656 in 870.94 ns/elt
+     dot_struct_c(arr_pair, LENGTH) calculated -7109144345354822656 in 1257.08 ns/elt
+
+with optimization -O3
+                          warmup(5) calculated -1599990000000000 in  0.00 ns/elt
+            dot(arr1, arr2, LENGTH) calculated -7109144345354822656 in 180.90 ns/elt
+          dot_c(arr1, arr2, LENGTH) calculated -7109144345354822656 in 426.99 ns/elt
+       dot_struct(arr_pair, LENGTH) calculated -7109144345354822656 in 729.09 ns/elt
+     dot_struct_c(arr_pair, LENGTH) calculated -7109144345354822656 in 1069.06 ns/elt
+
+In conclusion, the struct implementation ran SLOWER (if reading the timing where higher ns/elt is SLOWER than a lower ns/elt number) than the two array implementation, both in the C and Assembly implementations. Without any optimization, my Assembly implementation ran faster than the C code.
+With the optimization flags enabled, either the ns/elt scale isn't correct (which I assume to be the case) and where higher number still means slower, then with the case still stands where struct is slower than 2 arrays, with the exception of -O1, where they both ran with similar timing. I applied the optimization flag across all 3 files which may have also optimized my assembly code (?) 
 

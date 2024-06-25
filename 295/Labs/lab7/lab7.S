@@ -6,22 +6,24 @@
 
 .data
 randint_seed:
-    .quad 3
-randint_multiplier:
-    .quad 6364136223846793005
-randint_adder:
-    .quad 1442695040888963407
+    .quad 0
 
 .text
 
-# will probaly learn modulo in lecture
 randint:
-    mov randint_seed(%rip), %rax
+    # retrieve current seed
+    mov randint_seed(%rip), %rax 
+    
+    # seed = seed * 6364136223846793005 + 1442695040888963407
     movabs $6364136223846793005, %rbx
     mul %rbx
     movabs $1442695040888963407, %rbx
-    add %rbx, %rax
-    mov %rax, randint_seed(%rip)
+
+    # set seed calculation into rax
+    add %rbx, %rax  
+
+    # store the new seed back
+    mov %rax, randint_seed(%rip) 
     ret
 
 fill_array:
@@ -33,18 +35,9 @@ fill_loop:
     cmp %rsi, %rcx
     jge loop_done
 
-    # preserve used registers
-    push %rdi
-    push %rsi
-    push %rcx
-
+    # maybe TODO, preserve registers, but since I know what randint does, its fine
     # Call rand to get the value
     call randint
-
-    # restore registers
-    pop %rcx
-    pop %rsi
-    pop %rdi
     
     # set value (from randint) to the current iteration of the array 
     mov %rax, (%rdi, %rcx, 8)
@@ -58,8 +51,6 @@ dot:
     # rdi is address to arr1, rsi is address to arr2, rdx is len of arr
     mov $0, %rax
     mov $0, %rcx
-    # double rdx just for easier counting
-    imul $2, %rdx
 
 dot_loop:
     # Check if the counter (rcx) has reached the length (rdx)
