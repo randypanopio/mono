@@ -76,12 +76,15 @@ dot_struct:
     # rdi is address to struct arr, rsi is len of arr
     mov $0, %rax
     mov $0, %rcx
+    imul $2, %rsi
 
 dot_struct_loop:
     # Check if the counter (rcx) has reached the length (rsi)
     cmp %rsi, %rcx
     jge loop_done
-
+    # ([0-63,64-127],[128-x,y-z])
+    # n=0,            n=1
+    
     # get products
     # (starting address, n offset * word size (8 for 64bit))
     mov (%rdi, %rcx, 8), %r8 # first int64_t
@@ -92,7 +95,7 @@ dot_struct_loop:
     add %r8, %rax
 
     add $2, %rcx # increment by 2
-    jmp dot_loop
+    jmp dot_struct_loop
     ret
 
 loop_done:
