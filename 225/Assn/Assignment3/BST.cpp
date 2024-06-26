@@ -74,6 +74,7 @@ using std::nothrow;
          root = new BSTNode(newElement);
          elementCount++;
       } else {
+         // TODO i guess she wants us to do search and throw exception?
          // create a new Node from the element and attempt to insert
          BSTNode *newNode = new BSTNode(newElement); 
          try {
@@ -143,7 +144,7 @@ using std::nothrow;
 	  or you can replace it using your own implementation. */ 
    WordPair& BST::retrieve(WordPair & targetElement) const {
       if (elementCount == 0) {
-         cout << "exception: ElementAlreadyExistsException" << endl;
+         cout << "exception: EmptyDataCollectionException" << endl;
          throw EmptyDataCollectionException("BST is empty.");
       }        
      WordPair& translated = retrieveR(targetElement, root);
