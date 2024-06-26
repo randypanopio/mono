@@ -34,8 +34,6 @@ using std::nothrow;
 
    // Copy constructor
    BST::BST(const BST & aBST) {
-     
-	  // to do
    }
    
    // Overloaded oeprator
@@ -44,15 +42,12 @@ using std::nothrow;
    //              are an exact, yet independent, copy of each other.
    void BST::operator=(const BST & rhs) {
 
-      // to do
-	  return;
-	  
    }                
    
    // Destructor 
    BST::~BST() {
-
-      // to do
+      delete root;
+      root = nullptr;
    }                
    
    
@@ -62,9 +57,7 @@ using std::nothrow;
    // Postcondition: This method does not change the BST.
    // Time efficiency: O(1)
    unsigned int BST::getElementCount() const {     
-
-      // to do
-	 
+      return elementCount;
    }
 
    // Description: Inserts an element into the BST.
@@ -76,21 +69,64 @@ using std::nothrow;
    //            cannot be inserted into the BST. 
    // Time efficiency: O(log2 n)   
    void BST::insert(WordPair & newElement) {
-  
-      // to do
-	  return;
-	  
+      // check if tree is empty, initialize tree with this new element      
+      if (root == nullptr) {
+         root = new BSTNode(newElement);
+         elementCount++;
+      } else {
+         // create a new Node from the element and attempt to insert
+         BSTNode *newNode = new BSTNode(newElement); 
+         try {
+
+         } catch (ElementAlreadyExistsException){
+            // re throw exception
+         }
+         if (!insertR(newNode, root)) { // call directly the recursive insert, and check result
+            // unable to insert, already exist throw exception
+            delete newNode;
+            cout << "exception: ElementAlreadyExistsException on" << newElement.getEnglish() << endl;
+            throw ElementAlreadyExistsException("Element already exists in the BST.");
+         } else {
+            // successful insert increase counter
+            cout << "insert successful: on" << newElement.getEnglish() << endl;
+            elementCount++; 
+         }
+      }
    } 
    
    // Description: Recursive insertion into a BST.
    //              Returns true when "anElement" has been successfully inserted into the 
    //              BST. Otherwise, returns false.
+   // Time efficiency: O(log2 n)
    bool BST::insertR(BSTNode * newBSTNode, BSTNode * current) {  
-    
-	  // to do
-		
+      // do binary search on which position to insert the new node
+      if (newBSTNode->element < current->element) {
+         // new node is less so go left of tree
+         if (current->left == nullptr) {
+            // empty left subtree found, insert here
+            current->left = newBSTNode;
+            return true;
+         } else {
+            // left subtree not empty, recurse
+            return insertR(newBSTNode, current->left);
+         }
+      } else if (newBSTNode->element > current->element) {
+         // new node is greater so go right of tree
+         if (current->right == nullptr) {
+            // empty right subtree, insert here
+            current->right = newBSTNode;
+            return true;
+         } else {
+            // right subtree not empty, recurse 
+            return insertR(newBSTNode, current->right);
+         }
+      } else {
+         // comparison failed, do not insert, duplicate found, or something catastrophic somehow happened
+         throw ElementAlreadyExistsException("Element already exists in the BST.");
+         cout << "insertR failed: comparison failed! duplicate almost likely found"<< endl;
+         return false;
+      }
    }
-
    
    // Description: Retrieves "targetElement" from the BST.
    //              This is a wrapper method which calls the recursive retrieveR( ).
@@ -106,12 +142,11 @@ using std::nothrow;
       You can add to it, if you find it necessary to do so,
 	  or you can replace it using your own implementation. */ 
    WordPair& BST::retrieve(WordPair & targetElement) const {
-      
-     if (elementCount == 0)  
-        throw EmptyDataCollectionException("BST is empty.");
-	
+      if (elementCount == 0) {
+         cout << "exception: ElementAlreadyExistsException" << endl;
+         throw EmptyDataCollectionException("BST is empty.");
+      }        
      WordPair& translated = retrieveR(targetElement, root);
-	 
      return translated;
    }
 
@@ -119,10 +154,18 @@ using std::nothrow;
    // Exception: Throws the exception "ElementDoesNotExistException" 
    //            if "targetElement" is not found in the BST.
    // Postcondition: This method does not change the BST.
+   // Time efficiency: O(log2 n)
    WordPair& BST::retrieveR(WordPair & targetElement, BSTNode * current) const {
-
-	  // to do
-		
+      if (current == nullptr) {
+         cout << "exception: ElementDoesNotExistException" << endl;
+         throw ElementDoesNotExistException("Element does not exist in the BST.");
+      } else if (targetElement < current->element) {
+         return retrieveR(targetElement, current->left);
+      } else if (targetElement > current->element) {
+         return retrieveR(targetElement, current->right);
+      } else {
+         return current->element;
+      }
    }  
    
    // Description: Traverses the BST in order.
@@ -137,19 +180,21 @@ using std::nothrow;
       You can add to it, if you find it necessary to do so,
 	  or you can replace it using your own implementation. */   
    void BST::traverseInOrder(void visit(WordPair &)) const {
-     
-     if (elementCount == 0)  
-       throw EmptyDataCollectionException("BST is empty.");
-
-     traverseInOrderR(visit, root);
-     
-     return;
+      if (elementCount == 0) {
+         cout << "exception: ElementDoesNotExistException" << endl;
+         throw EmptyDataCollectionException("BST is empty.");
+      }
+      traverseInOrderR(visit, root);
+      return;
    }
 
    // Description: Recursive "in order" traversal of a BST.   
    // Postcondition: This method does not change the BST. 
+   // Time efficiency: O(n)
    void BST::traverseInOrderR(void visit(WordPair &), BSTNode* current) const { 
-   
-	  // to do
-	  
+      if (current != nullptr) {
+         traverseInOrderR(visit, current->left);
+         visit(current->element);
+         traverseInOrderR(visit, current->right);
+      }
    }
