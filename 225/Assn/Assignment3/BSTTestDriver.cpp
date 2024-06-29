@@ -15,6 +15,7 @@
 #include <sstream>
 #include <iomanip>
 #include <fstream>
+#include <cassert>
 #include "BST.h"
 #include "WordPair.h"
 #include "ElementAlreadyExistsException.h"
@@ -64,7 +65,7 @@ int main(int argc, char *argv[]) {
           translationW = aLine;
           WordPair aWordPair(englishW, translationW);
           
-		  // insert aWordPair into "testing" using a try/catch block
+          // insert aWordPair into "testing" using a try/catch block
           try {
             testing->insert(aWordPair);
           } catch (...) {
@@ -73,10 +74,41 @@ int main(int argc, char *argv[]) {
         }
         myfile.close();
 
-        // More BST testing happening here!
-		
+        // test the original tree:
+        cout << "--------------------" << endl;
+        cout << "testing traverseInOrder with original BST:" << endl;
+        testing->traverseInOrder(display);
+        cout << "--------------------" << endl;
+        // More BST testing happening here such as:
+        // Here is the hint:
+        cout << "--------------------" << endl;
+        cout << "****Copying one BST into another" << endl;
+        BST * testing2 = new(nothrow) BST(*testing); 
+        assert(testing2 != nullptr);
+        cout << "testing2 is:" << endl; 
+        try {
+          testing2->traverseInOrder(display);
+        }
+        catch (EmptyDataCollectionException& anException) {
+          cout << "Testing empty" << endl;
+        }
+        catch (ElementDoesNotExistException& anException) {
+          cout << anException.what( ); // For debugging purposes
+		}	 
+        cout << "--------------------" << endl; 
+
+        // More BST testing continues ...
+        // manually delete the allocated BSTs 
+        cout << "testing destructors of the BSTs" << endl;
+        if (testing != nullptr) {
+          delete testing;
+        }
+        if (testing2 != nullptr) {
+          delete testing2;
+        }
+        cout << "--------------------" << endl; 
       }
-	  else 
+      else 
         cout << "Unable to open file" << endl;
     }
     else
@@ -85,5 +117,6 @@ int main(int argc, char *argv[]) {
   else  
     cout << "new failed!" << endl;	
 
+  cout << "end of program" << endl;
   return 0;
 }

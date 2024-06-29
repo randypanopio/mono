@@ -49,6 +49,11 @@ private:
    // Postcondition: This method does not change the BST.
    void traverseInOrderR(void visit(WordPair &), BSTNode * current) const;
 
+   // helper function to delete tree nodes recursively
+   void clear(BSTNode* node);
+   // helper function to copy tree recursively
+   void copyTreeR(BSTNode*& newNode, BSTNode* sourceNode);
+
 
 public:
 

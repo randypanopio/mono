@@ -30,27 +30,67 @@ using std::nothrow;
 /* Constructors and destructor */
 
    // Default constructor
-   BST::BST() { }            
+   BST::BST() { }
 
    // Copy constructor
    BST::BST(const BST & aBST) {
-   }
-   
-   // Overloaded oeprator
-   // Description: Assignment (=) operator: copy (assign) "rhs" BST 
-   //              object to "this" BST object such that both objects
-   //              are an exact, yet independent, copy of each other.
-   void BST::operator=(const BST & rhs) {
+      // cout << "Copy Constructor Invoked"<< endl;
+      if (aBST.root != nullptr) {
+         // clear current tree
+         clear(root);
 
-   }                
-   
-   // Destructor 
+         root = new BSTNode(*(aBST.root));
+         copyTreeR(root, aBST.root); // recursively copy over the tree elements
+         elementCount = aBST.elementCount; // assign the other trees count to this
+      }
+   }
+
+   // Overloaded assignment (=) operator
+   void BST::operator=(const BST & rhs) {
+      // check if attempting to assign the same tree to itself
+      // cout << "Overload (=) assignment Invoked"<< endl;
+      if (this != &rhs) {
+         // clear the current tree
+         clear(root);
+
+         // recursively copy over the tree elements
+         if (rhs.root != nullptr) {
+            root = new BSTNode(*(rhs.root));
+            copyTreeR(root, rhs.root);
+         } else {
+            root = nullptr;
+         }
+         
+         elementCount = rhs.elementCount; // correctly assign the other tree's count to this 
+         // cout << "Overload (=) assignment completed!"<< endl;
+      }
+   }
+
+   // Destructor
    BST::~BST() {
-      delete root;
-      root = nullptr;
-   }                
-   
-   
+      // cout << "Destructor Invoked"<< endl;
+      // frees the memory allocated of this bst when it gets deleted
+      clear(root);
+   }
+
+   // helper function, clear the tree recursively
+   void BST::clear(BSTNode* node) {
+      if (node != nullptr) {
+         clear(node->left);
+         clear(node->right);
+         delete node;
+      }
+   }
+
+   // Helper function to copy the tree recursively
+   void BST::copyTreeR(BSTNode*& newNode, BSTNode* sourceNode) {
+      if (sourceNode != nullptr) {
+         newNode = new BSTNode(sourceNode->element);
+         copyTreeR(newNode->left, sourceNode->left);
+         copyTreeR(newNode->right, sourceNode->right);
+      }
+   }
+
 /* BST Public Interface */
  
    // Description: Returns the number of elements currently stored in the BST.   
@@ -74,23 +114,23 @@ using std::nothrow;
          root = new BSTNode(newElement);
          elementCount++;
       } else {
-         // TODO i guess she wants us to do search and throw exception?
          // create a new Node from the element and attempt to insert
-         BSTNode *newNode = new BSTNode(newElement); 
+         // catch the recursive functions exception and rethrow, as it has more idea of what kind of exception should be shown to the user
+         // delete node when exception appears
+         // otherwise I would have to recursive search if the element exists THEN throw the ElementAlreadyExistsException, but doing it this way allows me to save another O(logn) function call
+         BSTNode *newNode = new BSTNode(newElement);
          try {
-
-         } catch (ElementAlreadyExistsException){
-            // re throw exception
-         }
-         if (!insertR(newNode, root)) { // call directly the recursive insert, and check result
-            // unable to insert, already exist throw exception
+            bool result = insertR(newNode, root); // insert
+            if (result) {
+               elementCount++; // successful insert, increase count
+            }
+         // rethrow known exceptions            
+         } catch (ElementAlreadyExistsException const&) {
             delete newNode;
-            cout << "exception: ElementAlreadyExistsException on" << newElement.getEnglish() << endl;
-            throw ElementAlreadyExistsException("Element already exists in the BST.");
-         } else {
-            // successful insert increase counter
-            cout << "insert successful: on" << newElement.getEnglish() << endl;
-            elementCount++; 
+            throw; 
+         } catch (UnableToInsertException const&) {
+            delete newNode;
+            throw;
          }
       }
    } 
@@ -122,10 +162,13 @@ using std::nothrow;
             return insertR(newBSTNode, current->right);
          }
       } else {
-         // comparison failed, do not insert, duplicate found, or something catastrophic somehow happened
-         throw ElementAlreadyExistsException("Element already exists in the BST.");
-         cout << "insertR failed: comparison failed! duplicate almost likely found"<< endl;
-         return false;
+         if (current->element == newBSTNode->element) {
+            // cout << "insertR failed: ElementAlreadyExistsException"<< endl;
+            throw ElementAlreadyExistsException("Element already exists in the BST.");
+         }
+         // cout << "insertR failed: UnableToInsertException"<< endl;
+         throw UnableToInsertException("Unable to insert element in BST. Bad Tree?");
+         return false; // this will never return in this case.
       }
    }
    
@@ -144,7 +187,7 @@ using std::nothrow;
 	  or you can replace it using your own implementation. */ 
    WordPair& BST::retrieve(WordPair & targetElement) const {
       if (elementCount == 0) {
-         cout << "exception: EmptyDataCollectionException" << endl;
+         // cout << "exception: EmptyDataCollectionException" << endl;
          throw EmptyDataCollectionException("BST is empty.");
       }        
      WordPair& translated = retrieveR(targetElement, root);
@@ -158,7 +201,7 @@ using std::nothrow;
    // Time efficiency: O(log2 n)
    WordPair& BST::retrieveR(WordPair & targetElement, BSTNode * current) const {
       if (current == nullptr) {
-         cout << "exception: ElementDoesNotExistException" << endl;
+         // cout << "exception: ElementDoesNotExistException" << endl;
          throw ElementDoesNotExistException("Element does not exist in the BST.");
       } else if (targetElement < current->element) {
          return retrieveR(targetElement, current->left);
@@ -182,7 +225,7 @@ using std::nothrow;
 	  or you can replace it using your own implementation. */   
    void BST::traverseInOrder(void visit(WordPair &)) const {
       if (elementCount == 0) {
-         cout << "exception: ElementDoesNotExistException" << endl;
+         // cout << "exception: EmptyDataCollectionException" << endl;
          throw EmptyDataCollectionException("BST is empty.");
       }
       traverseInOrderR(visit, root);
