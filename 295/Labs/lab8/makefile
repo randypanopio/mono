@@ -4,7 +4,7 @@ tests:
 	gcc -Wall -Wpedantic -std=c17 -march=haswell lab8.S lab8c.c tests.c -o tests.out
 
 timing:
-	gcc -Wall -Wpedantic -std=c17 -march=haswell lab8.S lab8c.c timing.c -o timing.out
+	gcc -Wall -Wpedantic -std=c17 -march=haswell lab8.S lab8c.c timing.c -o3 -o timing.out
 
 
 clean: 

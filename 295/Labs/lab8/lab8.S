@@ -9,26 +9,34 @@
 
 hailstone_length_cmov:
     # conditional moves 'cmov' over jumps
-    cmp $1, %rdi                # Compare n (in %rdi) with 1
-    je base_case                # If n == 1, jump to base_case
+    # check if base cased reached
+    cmp $1, %rdi
+    je base_case
 
-    push %rdi                   # Save the current value of n on the stack
+    # save rdi
+    push %rdi
 
-    mov %rdi, %rax              # Move n into %rax
-    shr $1, %rax                # Calculate n / 2 (for even case) in %rax
+    # calcualte even case on rax (n//2)
+    mov %rdi, %rax
+    shr $1, %rax
 
-    mov %rdi, %rdx              # Move n into %rdx
-    imul $3, %rdx               # Calculate 3 * n (for odd case) in %rdx
-    add $1, %rdx                # Calculate 3 * n + 1 (for odd case) in %rdx
+    # calculate odd case on rdx (3*n+1)
+    mov %rdi, %rdx
+    imul $3, %rdx
+    add $1, %rdx
 
-    test $1, %rdi               # Test if %rdi is even
-    cmovz %rax, %rdi            # If even, move %rax (n / 2) into %rdi
-    cmovnz %rdx, %rdi           # If odd, move %rdx (3 * n + 1) into %rdi
+    # do hailstone case, change rdi with odd/even case on what rdi/n currently is
+    test $1, %rdi
+    cmovz %rax, %rdi
+    cmovnz %rdx, %rdi
 
-    call hailstone_length       # Recurse
+    # Recurse
+    call hailstone_length_cmov       
 
-    pop %rdi                    # Restore pushed %rdi value
-    add $1, %rax                # Increment %rax
+    # restore rdi
+    pop %rdi
+    # increment rax 
+    add $1, %rax
     ret
 
 # ---- haildstone sequence Lab3 implementation ----

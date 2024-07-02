@@ -1,12 +1,47 @@
 1) How much faster was the by-row access of the rectangular array than the by-column when your array fits in L1 cache? (Compare the worst case of each.)
-My machine with a AMD Ryzen 9 7950X3D 16-Core Processor had an L1 cache (for both instruction and data) in 512 KiB.
+My machine with a AMD Ryzen 9 7950X3D 16-Core Processor had an L1 cache (for both instruction and data) in 512 KiB. With a double being 8 bytes, it could fit up to 65,536 C double in L1 cache. 
 
+from my results (with input size 5120000, which does NOT fit my L1 cache),
+my slowest Col calculation was:
+Col Calculated -42.7861 in    29.35ms on w:512*h:10000 array.
+and my slowest Row calculation was:
+Row Calculated -42.7861 in     4.33ms on w:1*h:5120000 array. 
+Where here there is clear cache misses with the Col approach, with a difference of 148.5%.
+
+However if I were to test with an input size of say 20160, where clearly in both row and col calculation would fit in my L1 cache, the slowest run is still within margin of error in timing.
+my slowest Col calculation was:
+Col Calculated -72.3766 in     0.01ms on w:1*h:20160 array. 
+and my slowest Row calculation was:
+Row Calculated -72.3766 in     0.02ms on w:1*h:20160 array.
+In this case there is zero difference.
 
 2) How does the performance of the by-column summation change as the array gets larger than the caches?
-
+The column summation could run much slower. From my example in Q1, it could run up to 148.5% slower with my machine on an input size of 5120000.
 
 3) Your experience likely matches mine: for large arrays, the by-column summation of an array with a small height (≈single-digits) is consistently slower than a small width. Why do you think that is?
+This might be due to memory locality difference when trying to access data "vertically" vs "horizontally". Leading to cache misses when going through the large array where the entire array cannot fit into L1 cache. So when the height is small, it could blead to more cache misses vs when the width is small.
 
+However I actually did not encounter with my setup, with my results below. Which might indicate that the cache misses are consistent and my machine is able to optimize for that? Perhaps the prefetching can recognize the pattern for both small width and height sizes (despite the cache misses), leading to identical performance.
+small width:
+Col Calculated -42.7861 in     3.28ms on w:1*h:5120000 array.                            
+Col Calculated -42.7861 in     3.40ms on w:2*h:2560000 array.                            
+Col Calculated -42.7861 in     3.76ms on w:4*h:1280000 array.                            
+Col Calculated -42.7861 in     3.98ms on w:5*h:1024000 array.                            
+Col Calculated -42.7861 in     5.01ms on w:8*h:640000 array.  
+small height:
+Col Calculated -42.7861 in     3.35ms on w:640000*h:8 array.                             
+Col Calculated -42.7861 in     3.28ms on w:1024000*h:5 array.                            
+Col Calculated -42.7861 in     3.25ms on w:1280000*h:4 array.                            
+Col Calculated -42.7861 in     3.28ms on w:2560000*h:2 array.                            
+Col Calculated -42.7861 in     3.30ms on w:5120000*h:1 array.
 
 4) Did avoiding the branch with a conditional move speed up the hailstone length calculation? By how much? How did the C code compare? [I believe this is a very rare case where our assembly can slightly beat gcc -O3. Sadly, clang -O3 still beats my times.]
+Implementing hailstone_length with conditional moves compared to the original jumps (with the exception of the base case) had the assembly implementation run much faster than my original assembly implementation with a 64% difference. It also ran close to the optimized -o3 C code, but the C code still ran faster with a 20.8% difference. 
 
+My results:
+                   warmup calculated  218020677 in 260 ms
+                   warmup calculated  218020677 in 259 ms
+                   warmup calculated  218020677 in 260 ms
+       hailstone_length_c calculated  218020677 in 267 ms
+         hailstone_length calculated  218020677 in 639 ms
+    hailstone_length_cmov calculated  218020677 in 329 ms
