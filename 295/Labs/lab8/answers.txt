@@ -21,7 +21,7 @@ The column summation could run much slower. From my example in Q1, it could run 
 3) Your experience likely matches mine: for large arrays, the by-column summation of an array with a small height (≈single-digits) is consistently slower than a small width. Why do you think that is?
 This might be due to memory locality difference when trying to access data "vertically" vs "horizontally". Leading to cache misses when going through the large array where the entire array cannot fit into L1 cache. So when the height is small, it could blead to more cache misses vs when the width is small.
 
-However I actually did not encounter with my setup, with my results below. Which might indicate that the cache misses are consistent and my machine is able to optimize for that? Perhaps the prefetching can recognize the pattern for both small width and height sizes (despite the cache misses), leading to identical performance.
+However I actually did not encounter with my setup, with my results below. Which might indicate that the cache misses are consistent and my machine is able to optimize for that? Perhaps the prefetching can recognize the pattern for both small width and height sizes (despite the cache misses), leading to identical performance. Even looking closer it looks like for my machine, small width is actually SLOWER than small height.
 small width:
 Col Calculated -42.7861 in     3.28ms on w:1*h:5120000 array.                            
 Col Calculated -42.7861 in     3.40ms on w:2*h:2560000 array.                            

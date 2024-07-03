@@ -1,4 +1,4 @@
-all: translate
+all: td
 
 translate: Translator.o WordPair.o Dictionary.o BST.o BSTNode.o ElementAlreadyExistsException.o ElementDoesNotExistException.o EmptyDataCollectionException.o UnableToInsertException.o
 	g++ -Wall -o translate Translator.o WordPair.o Dictionary.o BST.o BSTNode.o ElementAlreadyExistsException.o ElementDoesNotExistException.o EmptyDataCollectionException.o UnableToInsertException.o
@@ -8,7 +8,13 @@ Translator.o: Translator.cpp
 
 Dictionary.o: Dictionary.h Dictionary.cpp
 	g++ -Wall -c Dictionary.cpp
+
+td: BSTTestDriver.o WordPair.o BST.o BSTNode.o ElementAlreadyExistsException.o ElementDoesNotExistException.o EmptyDataCollectionException.o UnableToInsertException.o
+	g++ -Wall -o td BSTTestDriver.o WordPair.o BST.o BSTNode.o ElementAlreadyExistsException.o ElementDoesNotExistException.o EmptyDataCollectionException.o UnableToInsertException.o
 	
+BSTTestDriver.o: BSTTestDriver.cpp
+	g++ -Wall -c BSTTestDriver.cpp 	
+
 WordPair.o: WordPair.h WordPair.cpp
 	g++ -Wall -c WordPair.cpp
 			
@@ -31,4 +37,4 @@ UnableToInsertException.o: UnableToInsertException.h UnableToInsertException.cpp
 	g++ -Wall -c UnableToInsertException.cpp
 
 clean:
-	rm -f translate *.o
+	rm -f translate td *.o

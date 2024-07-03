@@ -20,7 +20,7 @@ class Dictionary {
 private:
 
 /* You cannot change the following data member of this class. */
-   BST * keyValuePairs = nullptr;                  
+   BST * keyValuePairs = nullptr;
 
 /* Feel free to add private methods to this class. */
    
