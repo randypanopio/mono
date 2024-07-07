@@ -1,0 +1,90 @@
+1) Do you promise you got a "All heap blocks were freed" on your array-2d.c code from last week?
+I did including the additional allocation I added in my code. I also cross-checekd with valgrind last week to confirm I had no leaks.
+
+2) When bubble sorting a random array, what fraction of the running time do you think is being spent on examining values (the loops + comparison)? Swapping values? Branch mispredictions?
+Assuming that each instruction is 1 cycle, we can assign 1 cycle per comparison, 3 cycle for the swap, and a branch prediction (arbitrary) 10 cycles.
+Since the inner loop runs strictly on n(n-1)/2 (which I'll assign the value C).
+Time spent on comparisons: T(compparisons) = C * 1 cycle
+Time spent on swaps: T(swaps) = C * 3 cycles
+Time spent on branch mispredictions: T(mispredictions) = C * (50% rate) * 10 cycles
+And total running time is T = T(comparison) + T(swaps) + T(mispredictions)  
+T = (1 + 3 + 5) * C
+
+So
+F(comparison) = T(comparison)/T = (C * 1 cycles)/T = 1/9 = 11~%
+F(swaps) = T(swaps)/T = (C * 3 cycles)/T = 3/9 = 33~%
+F(mispredictions) = T(mispredictions)/T = (C * 0.5 * 10 cycles)/T = 5/9 = 56~%
+
+Therefore misprediction here costs the largest running time (assuming a misprediction costs 10 cycles, and happens 50%  of the time, otherwise if this is not the case, then mispredictions would be a smaller fraction of the running time)
+
+3) What were the tests of bubble sort you ran under perf? (Likely 2 or 3 runs with different calls to just_sort.)
+running Perf: Samples: 1K of event 'branches:pp', Event count (approx.): 1203903442
+according to my bubblesort I had the following result of branch mimspredictions:
+  33.35%  a.out    a.out             [.] bubble_sort_random(unsigned long)
+  33.30%  a.out    a.out             [.] bubble_sort_sorted(unsigned long)
+  33.30%  a.out    a.out             [.] bubble_sort_reverse_sort(unsigned long)
+So it matches the result when running the original test code, it seems like all three cases behave the exact same in terms of branch missprediction (Assuming using the provided compile commands with a -O1 flag)
+
+4) What fraction of the branches at the if in bubble sort were mispredicted when the array was random? When it was already sorted? Note that for an array of 20000, the if should execute 199,990,000 times.
+On Random:
+14.6% on │      cmp        %r8,%rdx   
+85.40% on │    ↑ jbe        6c 
+
+On Reverse Sorted:
+8.38% on │   │  cmp        %r8,%rdx
+91.62% │   └──jbe        6c
+
+On Sorted:
+8.63% │   │  cmp        %r8,%rdx
+91.09% │   └──jbe        6c  
+
+I'm still not sure how best to interpret it but it does look like on Random has a slight difference in the jump instruction compared to sort and rev sort, they are somewhat close to each other. So perhaps that is why the percentage of the branch mispredicted is equal across my runs. 
+
+5) How did the Perf report number of cache misses change with the larger 2D array "height"? Does it match your expectations?
+Perf Results:
+With height 1: Calculated 2341.98 in    81.68 ms on 80000000*1 array. 
+        22,572,217      L1-dcache-load-misses            #    1.25% of all L1-dcache accesses 
+     1,807,814,488      L1-dcache-loads                                                        
+           230,616      LLC-load-misses                  #   67.80% of all L1-icache accesses 
+           340,151      LLC-loads   
+
+With height 10000: Calculated 2341.98 in   506.04 ms on 8000*10000 array. 
+       172,261,659      L1-dcache-load-misses            #    9.53% of all L1-dcache accesses 
+     1,807,978,198      L1-dcache-loads                                                        
+        16,808,071      LLC-load-misses                  #   12.89% of all L1-icache accesses 
+       130,381,476      LLC-loads  
+
+With height 10000000: Calculated 2341.98 in   207.58 ms on 8*10000000 array. 
+        92,209,964      L1-dcache-load-misses            #    5.10% of all L1-dcache accesses
+     1,807,895,747      L1-dcache-loads                                                                          
+        34,904,653      LLC-load-misses                  #   55.60% of all L1-icache accesses
+        62,781,738      LLC-loads 
+
+Conclusion: The "larger" the height increases leads to an increase of cache misses, but only up to a point, the closer the array is "rectangular" the worse it performs, once it starts to have a small width and very large height, it performs better than the "box" like arrays.
+
+6) How did the Cachegrind report number of cache misses change with the larger 2D array "height"? Does it match your expectations?
+The larger the height, the percentage of cache misses increases as expected, although it doesn't seem to get significantly worse.
+
+Below are my results:
+Size 8000000 height 1:
+==42199== D   refs:      232,049,536  (168,034,976 rd   + 64,014,560 wr)                                                                                                                                                                                                    
+==42199== D1  misses:      2,002,388  (  1,001,722 rd   +  1,000,666 wr)                                                                                                                                                                                                    
+==42199== LLd misses:      2,002,081  (  1,001,455 rd   +  1,000,626 wr)                                                                                                                                                                                                    
+==42199== D1  miss rate:         0.9% (        0.6%     +        1.6%  )                                                                                                                                                                                                    
+==42199== LLd miss rate:         0.9% (        0.6%     +        1.6%  )  
+
+Size 8000000 Height 10000:
+==42244== D   refs:      232,049,555  (168,034,990 rd   + 64,014,565 wr)                                                                                                                                                                                                    
+==42244== D1  misses:      9,002,387  (  8,001,721 rd   +  1,000,666 wr)                                                                                                                                                                                                    
+==42244== LLd misses:      1,993,741  (    993,115 rd   +  1,000,626 wr)                                                                                                                                                                                                    
+==42244== D1  miss rate:         3.9% (        4.8%     +        1.6%  )                                                                                                                                                                                                    
+==42244== LLd miss rate:         0.9% (        0.6%     +        1.6%  )  
+
+Size 8000000 Height 500000:
+==42249== D   refs:      232,049,553  (168,034,989 rd   + 64,014,564 wr)                                                                                                                                                                                                    
+==42249== D1  misses:      9,002,387  (  8,001,721 rd   +  1,000,666 wr)                                                                                                                                                                                                    
+==42249== LLd misses:      9,002,080  (  8,001,454 rd   +  1,000,626 wr)                                                                                                                                                                                                    
+==42249== D1  miss rate:         3.9% (        4.8%     +        1.6%  )                                                                                                                                                                                                    
+==42249== LLd miss rate:         3.9% (        4.8%     +        1.6%  ) 
+
+Size 8000000 Height 1000000:

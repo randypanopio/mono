@@ -1,0 +1,35 @@
+gcc -Wall -Wpedantic -std=c17 -march=haswell -O1 -g array-2d.c -o arr.out
+perf stat -e L1-dcache-load-misses,L1-dcache-loads,LLC-load-misses,LLC-loads ./arr.out 80000000 1
+perf record -e L1-dcache-load-misses:pp,L1-dcache-loads:pp,LLC-load-misses:pp,LLC-loads:pp ./arr.out 80000000 1
+perf report
+perf annotate
+
+
+
+make clean
+g++ -Wall -Wpedantic -std=c++17 -march=haswell -O1 -g sort.cpp
+perf stat -e branch-misses,branches,br_inst_retired.not_taken ./a.out 20000
+perf record -e branch-misses:pp,branches:pp,br_inst_retired.not_taken:pp ./a.out 20000
+perf report
+perf annotate
+
+
+// small height, large w
+gcc -Wall -Wpedantic -std=c17 -march=haswell -O1 -g array-2d.c
+perf stat -e L1-dcache-load-misses,L1-dcache-loads,LLC-load-misses,LLC-loads ./a.out 80000000 1
+perf record -e L1-dcache-load-misses:pp,L1-dcache-loads:pp,LLC-load-misses:pp,LLC-loads:pp ./a.out 80000000 1
+perf report
+perf annotate
+
+
+// large height, small w
+gcc -Wall -Wpedantic -std=c17 -march=haswell -O1 -g array-2d.c
+perf stat -e L1-dcache-load-misses,L1-dcache-loads,LLC-load-misses,LLC-loads ./a.out 80000000 10000000
+perf record -e L1-dcache-load-misses:pp,L1-dcache-loads:pp,LLC-load-misses:pp,LLC-loads:pp ./a.out 80000000 10000000
+perf report
+perf annotate
+
+
+rm cachegrind.out.*
+valgrind --tool=cachegrind ./a.out 80000000 500000
+cg_annotate cachegrind.out.*

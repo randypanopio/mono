@@ -113,7 +113,7 @@ int main(int argc, char *argv[]) {
     if (dictionary != nullptr) {
         delete dictionary;
     }
-    cout << "End of translate program" << endl;
+    cout << "End of English to Finnish translate program" << endl;
     return 0;
 }
 
