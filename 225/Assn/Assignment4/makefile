@@ -1,9 +1,12 @@
 
-all: tdQ
+all: tdQ tdBH
 
 tdQ: testDriver_Q.o Queue.h Event.o EmptyDataCollectionException.o
 	g++ -o tdQ -Wall testDriver_Q.o Event.o EmptyDataCollectionException.o
-	
+
+tdBH: testDriver_Q.o BinaryHeap.h Event.o EmptyDataCollectionException.o
+	g++ -o tdQ -Wall testDriver_Q.o Event.o EmptyDataCollectionException.o
+
 testDriver_Q.o: testDriver_Q.cpp 
 	g++ -c -Wall testDriver_Q.cpp
 	
@@ -12,6 +15,8 @@ Event.o: Event.cpp Event.h
 
 EmptyDataCollectionException.o: EmptyDataCollectionException.cpp EmptyDataCollectionException.h 
 	g++ -c -Wall EmptyDataCollectionException.cpp
+
+
 
 clean:	
 	rm -f tdQ *.o

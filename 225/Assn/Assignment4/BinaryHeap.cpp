@@ -76,6 +76,7 @@ bool BinaryHeap<ElementType>::insert(ElementType & newElement) {
    elementCount++;
    // maintain heap invariant reheap inserted element
    reHeapUp(elementCount - 1);
+   return true;
 }
 
 // Description: Removes (but does not return) the necessary element.
@@ -85,7 +86,7 @@ bool BinaryHeap<ElementType>::insert(ElementType & newElement) {
 template <class ElementType>
 void BinaryHeap<ElementType>::remove() {  
    if(elementCount == 0){
-      throw EmptyDataCollectionException("remove() called with an empty BinaryHeap.");
+      // throw EmptyDataCollectionException("remove() called with an empty BinaryHeap.");
    }
    elements[0] = elements[elementCount - 1];
    elementCount--;
@@ -106,7 +107,7 @@ template <class ElementType>
 ElementType & BinaryHeap<ElementType>::retrieve() const {
    // analogous to peek
    if (elementCount == 0) {
-      throw EmptyDataCollectionException("retrieve() called with an empty BinaryHeap.");
+      // throw EmptyDataCollectionException("retrieve() called with an empty BinaryHeap.");
    }
    return elements[0];
 }
@@ -170,3 +171,6 @@ void BinaryHeap<ElementType>::reHeapUp(unsigned int index) {
    }
    return; // current index in correct position
 }
+
+
+template class BinaryHeap<int>;
