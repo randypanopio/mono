@@ -106,7 +106,7 @@ void bubble_sort(DATA_T* array, uint64_t length) {
         for (uint64_t j = i + 1; j < length; ++j) {       // j from i+1 to length-1
             if (array[i] > array[j]) {
                 // swap array[i] and array[j]
-                uint64_t tmp = array[j];
+                auto tmp = array[j];
                 array[j] = array[i];
                 array[i] = tmp;
             }
@@ -179,7 +179,7 @@ void bubble_sort_sorted(uint64_t length) {
     for (uint64_t i = 0; i < length - 1; ++i) {           // i from 0 to length-2
         for (uint64_t j = i + 1; j < length; ++j) {       // j from i+1 to length-1
             if (array[i] > array[j]) { // SORTED annotate
-                uint64_t tmp = array[j];
+                auto tmp = array[j];
                 array[j] = array[i];
                 array[i] = tmp;
             }
@@ -193,7 +193,7 @@ void bubble_sort_random(uint64_t length) {
     for (uint64_t i = 0; i < length - 1; ++i) {           // i from 0 to length-2
         for (uint64_t j = i + 1; j < length; ++j) {       // j from i+1 to length-1
             if (array[i] > array[j]) { // RANDOM annotate
-                uint64_t tmp = array[j];
+                auto tmp = array[j];
                 array[j] = array[i];
                 array[i] = tmp;
             }
@@ -207,7 +207,7 @@ void bubble_sort_reverse_sort(uint64_t length) {
     for (uint64_t i = 0; i < length - 1; ++i) {           // i from 0 to length-2
         for (uint64_t j = i + 1; j < length; ++j) {       // j from i+1 to length-1
             if (array[i] > array[j]) { // REVERSSORT annotate
-                uint64_t tmp = array[j];
+                auto tmp = array[j];
                 array[j] = array[i];
                 array[i] = tmp;
             }
@@ -225,11 +225,11 @@ int main(int argc, char* argv[]) {
     // printf("------ sort test start --------\n");
     uint64_t length = atol(argv[1]);   
     
-    // test only my bubblesort in RANDOM -> should be 25% of the branch prediction
+    // test only my bubblesort in RANDOM -> should be ~25% of the branch prediction (50% misprediction, half of the two with misprediction)
     bubble_sort_random(length);
-    // test only my bubble sort in REVERSE_SORTED -> should MOST of the branch prediction 
+    // test only my bubble sort in REVERSE_SORTED -> should MOST ~75% of the branch prediction (100% misprediction, half of the two with misprediction)
     bubble_sort_reverse_sort(length);
-    // test only my bubble sort in SORTED -> should be LEAST of the branch prediction
+    // test only my bubble sort in SORTED -> should be LEAST ~0% of the branch prediction
     bubble_sort_sorted(length);
 
     // test only qsort
@@ -243,15 +243,14 @@ int main(int argc, char* argv[]) {
     // free(array);
     
     // original test code
-    //time_them(length);
     // printf("Array size: %lu kB\n", length * sizeof(DATA_T) / 1024);
     
-    // Warm up to get the CPU out of a low-power state...
+    // // // Warm up to get the CPU out of a low-power state...
     // just_sort(bubble_sort, length, RANDOM);
     // just_sort(bubble_sort, length, RANDOM);
     // just_sort(bubble_sort, length, RANDOM);
     
-    // The real test...
+    // // // The real test...
     // time_them(length);
     // printf("------ timing completed --------\n");
     return 0;

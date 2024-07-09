@@ -4,7 +4,7 @@ I did including the additional allocation I added in my code. I also cross-chece
 2) When bubble sorting a random array, what fraction of the running time do you think is being spent on examining values (the loops + comparison)? Swapping values? Branch mispredictions?
 Assuming that each instruction is 1 cycle, we can assign 1 cycle per comparison, 3 cycle for the swap, and a branch prediction (arbitrary) 10 cycles.
 Since the inner loop runs strictly on n(n-1)/2 (which I'll assign the value C).
-Time spent on comparisons: T(compparisons) = C * 1 cycle
+Time spent on comparisons: T(comparisons) = C * 1 cycle
 Time spent on swaps: T(swaps) = C * 3 cycles
 Time spent on branch mispredictions: T(mispredictions) = C * (50% rate) * 10 cycles
 And total running time is T = T(comparison) + T(swaps) + T(mispredictions)  
@@ -86,5 +86,3 @@ Size 8000000 Height 500000:
 ==42249== LLd misses:      9,002,080  (  8,001,454 rd   +  1,000,626 wr)                                                                                                                                                                                                    
 ==42249== D1  miss rate:         3.9% (        4.8%     +        1.6%  )                                                                                                                                                                                                    
 ==42249== LLd miss rate:         3.9% (        4.8%     +        1.6%  ) 
-
-Size 8000000 Height 1000000:
