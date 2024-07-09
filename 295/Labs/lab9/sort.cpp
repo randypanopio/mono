@@ -225,11 +225,11 @@ int main(int argc, char* argv[]) {
     // printf("------ sort test start --------\n");
     uint64_t length = atol(argv[1]);   
     
-    // test only my bubblesort in RANDOM -> should be ~25% of the branch prediction (50% misprediction, half of the two with misprediction)
+    // test only my bubblesort in RANDOM -> should be in between reverse sort and sorted (50% on the if statement)
     bubble_sort_random(length);
-    // test only my bubble sort in REVERSE_SORTED -> should MOST ~75% of the branch prediction (100% misprediction, half of the two with misprediction)
+    // test only my bubble sort in REVERSE_SORTED -> should MOST of the branch prediction (100% on the if statement)
     bubble_sort_reverse_sort(length);
-    // test only my bubble sort in SORTED -> should be LEAST ~0% of the branch prediction
+    // test only my bubble sort in SORTED -> should be LEAST (0% on the if statement)
     bubble_sort_sorted(length);
 
     // test only qsort

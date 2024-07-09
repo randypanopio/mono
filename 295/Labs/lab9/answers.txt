@@ -17,28 +17,65 @@ F(mispredictions) = T(mispredictions)/T = (C * 0.5 * 10 cycles)/T = 5/9 = 56~%
 
 Therefore misprediction here costs the largest running time (assuming a misprediction costs 10 cycles, and happens 50%  of the time, otherwise if this is not the case, then mispredictions would be a smaller fraction of the running time)
 
+For my actual results:
+./sort.out 20000
+Array size: 156 kB
+    bubble_sort on sorted sorted    20000 values in   83.92 ms
+   bubble_sort on reverse sorted    20000 values in   95.49 ms
+    bubble_sort on random sorted    20000 values in  118.10 ms
+          qsort on random sorted    20000 values in    1.40 ms
+      std::sort on random sorted    20000 values in    0.90 ms
+
+
 3) What were the tests of bubble sort you ran under perf? (Likely 2 or 3 runs with different calls to just_sort.)
-running Perf: Samples: 1K of event 'branches:pp', Event count (approx.): 1203903442
-according to my bubblesort I had the following result of branch mimspredictions:
-  33.35%  a.out    a.out             [.] bubble_sort_random(unsigned long)
-  33.30%  a.out    a.out             [.] bubble_sort_sorted(unsigned long)
-  33.30%  a.out    a.out             [.] bubble_sort_reverse_sort(unsigned long)
-So it matches the result when running the original test code, it seems like all three cases behave the exact same in terms of branch missprediction (Assuming using the provided compile commands with a -O1 flag)
+I rewrote my code so I can analyze my code easier in Perf. There I have three calls that isolate just running the bubble sorts across three cases:
+bubble_sort_random(length);
+bubble_sort_reverse_sort(length);
+bubble_sort_sorted(length);
+
+running Perf according to my bubblesort I had the following result of branch mimspredictions:
+Samples: 2K of event 'branches:pp', Event count (approx.): 1506099273 
+  39.80%  a.out    a.out             [.] bubble_sort_reverse_sort(unsigned long)
+  33.23%  a.out    a.out             [.] bubble_sort_random(unsigned long)
+  26.57%  a.out    a.out             [.] bubble_sort_sorted(unsigned long)
+So according to these results (bracnhes:pp), the reverse sort did indeed take the most of my mispredictions, the sorted order taking the least, and random being in between the two. (Assuming using the provided compile commands with a -O1 flag)
+
 
 4) What fraction of the branches at the if in bubble sort were mispredicted when the array was random? When it was already sorted? Note that for an array of 20000, the if should execute 199,990,000 times.
-On Random:
-14.6% on │      cmp        %r8,%rdx   
-85.40% on │    ↑ jbe        6c 
+Isolating my code to run just each type I got the following results:
+Random had a 9%~ branch misses, and Sorted had 0.05%~, Reverse sorted had 0.03%~. 
 
-On Reverse Sorted:
-8.38% on │   │  cmp        %r8,%rdx
-91.62% │   └──jbe        6c
+Random:
+45,082,338      branch-misses                    #    8.99% of all branches           
+501,222,803      branches                                                              
+300,783,045      br_inst_retired.not_taken                                             
 
-On Sorted:
-8.63% │   │  cmp        %r8,%rdx
-91.09% │   └──jbe        6c  
+0.370040230 seconds time elapsed
 
-I'm still not sure how best to interpret it but it does look like on Random has a slight difference in the jump instruction compared to sort and rev sort, they are somewhat close to each other. So perhaps that is why the percentage of the branch mispredicted is equal across my runs. 
+0.368398000 seconds user
+0.000000000 seconds sys
+
+Sorted: 
+203,314      branch-misses                    #    0.05% of all branches           
+402,649,060      branches                                                              
+201,107,821      br_inst_retired.not_taken                                             
+
+0.110636535 seconds time elapsed
+
+0.105604000 seconds user
+0.004061000 seconds sys
+
+Reverse sort:
+165,608      branch-misses                    #    0.03% of all branches           
+601,184,747      branches                                                              
+400,443,605      br_inst_retired.not_taken                                             
+
+0.116335718 seconds time elapsed
+
+0.115130000 seconds user
+0.000000000 seconds sys
+
+I'm still unsure why I have differing reports when I isolate only running each sort in isolation vs running all three at once and looking at the share of misprediction across the 3 order types i did on Q3
 
 5) How did the Perf report number of cache misses change with the larger 2D array "height"? Does it match your expectations?
 Perf Results:
