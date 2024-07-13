@@ -11,12 +11,12 @@
  */  
 
 #include <cmath>
-#include <iostream>
+// #include <iostream>
 #include "BinaryHeap.h"  // Header file
 #include "EmptyDataCollectionException.h"
 
-using std::cout;
-using std::endl;
+// using std::cout;
+// using std::endl;
   
 // Constructor
 template <class ElementType>
@@ -51,7 +51,7 @@ unsigned int BinaryHeap<ElementType>::getElementCount() const {
 
 // Description: Inserts "newElement" into the Binary Heap. 
 //              It returns true if successful, otherwise false.      
-// Time Efficiency: O(log2 n)
+// Time Efficiency: O(log2 n) Amortized, O(n) during resize operation
 template <class ElementType>
 bool BinaryHeap<ElementType>::insert(ElementType & newElement) {
    if (elementCount == capacity) {
@@ -91,6 +91,8 @@ void BinaryHeap<ElementType>::remove() {
    elements[0] = elements[elementCount - 1];
    elementCount--;
    
+   // TODO include a resize down like Queue did, but leave alone for now
+
    // No need to call reheapDown() is we have just removed the only element
    if ( elementCount > 0 ) {
       reHeapDown(0);
@@ -107,7 +109,7 @@ template <class ElementType>
 ElementType & BinaryHeap<ElementType>::retrieve() const {
    // analogous to peek
    if (elementCount == 0) {
-      // throw EmptyDataCollectionException("retrieve() called with an empty BinaryHeap.");
+      throw EmptyDataCollectionException("retrieve() called with an empty BinaryHeap.");
    }
    return elements[0];
 }
@@ -171,6 +173,3 @@ void BinaryHeap<ElementType>::reHeapUp(unsigned int index) {
    }
    return; // current index in correct position
 }
-
-
-template class BinaryHeap<int>;

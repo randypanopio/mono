@@ -63,4 +63,5 @@ public:
    ElementType & retrieve() const;
 };
 /******* End of Binary Heap Public Interface *******/
+
 #endif
