@@ -1,0 +1,19 @@
+1) What was the running time of the dot product implementations? Assembly vs the compiler, and single- vs double-precision?
+             dot_double_c took    26.0 ms
+               dot_double took    26.1 ms
+             dot_single_c took    25.2 ms
+               dot_single took    25.5 ms
+above are my results with compliation flag -O3 set. My results show that optimized C code preforms on par with my assembly code. I also checked with -O0, and without any optimization, my assembly code does run faster.
+
+2) Same question, but for the polynomial evaluation? (Prediction: the differences should be much more obvious here.)
+       map_poly_double_c1 took    18.4 ms
+       map_poly_double_c2 took    18.3 ms
+          map_poly_double took    21.9 ms
+        map_poly_single_c took     9.6 ms
+          map_poly_single took    15.6 ms
+above are my results with compliation flag -O3 set. I also used the more efficient way to calculate the polynomial from the previous lab, meaning the optimized C has outperformed my assembly code. I also checked with -O0, and without any optimization, my assembly code does run faster (on all cases).
+
+3) What is the relative running time of the x87-based sine calculation vs the C implementation (that uses its own implementation of the function)?
+               sin_stdlib took   145.4 ms
+                 sin_assm took   601.3 ms
+above were my results, meaning the C standard library implementation runs significantly faster than the assembly x87 way of calculating sin. 
