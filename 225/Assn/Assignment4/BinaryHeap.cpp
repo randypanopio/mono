@@ -86,7 +86,7 @@ bool BinaryHeap<ElementType>::insert(ElementType & newElement) {
 template <class ElementType>
 void BinaryHeap<ElementType>::remove() {  
    if(elementCount == 0){
-      // throw EmptyDataCollectionException("remove() called with an empty BinaryHeap.");
+      throw EmptyDataCollectionException("remove() called with an empty BinaryHeap.");
    }
    elements[0] = elements[elementCount - 1];
    elementCount--;
