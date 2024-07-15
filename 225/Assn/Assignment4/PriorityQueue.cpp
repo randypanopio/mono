@@ -22,6 +22,7 @@ using std::endl;
 template <class ElementType>
 PriorityQueue<ElementType>::PriorityQueue() {
     cout << "PQ default ctor invoked: " << endl; 
+    // TODO update PQ to memory allocate in FIRST insertion
     heap = new BinaryHeap<ElementType>();
 }
 
@@ -54,6 +55,7 @@ bool PriorityQueue<ElementType>::isEmpty() const {
 template <class ElementType>
 bool PriorityQueue<ElementType>::enqueue(ElementType & newElement) {
     cout << "Inserting element in PQ: " << newElement << endl; 
+    // TODO update PQ to memory allocate in FIRST insertion
     return heap->insert(newElement);
 }
 

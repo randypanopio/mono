@@ -34,6 +34,7 @@ template class PriorityQueue<int>;
 template class PriorityQueue<Event>;
 template class Queue<Event>;
 
+// TODO update PQ to memory allocate in FIRST insertion
 int main(int argc, char *argv[]) {
     if (argc <= 1) {
         cout << "Missing the data filename!" << endl;
@@ -48,6 +49,8 @@ int main(int argc, char *argv[]) {
         return 1;
     }
 
+    cout << "Simulation Begins" << endl;
+
     PriorityQueue<Event> pq;
     Queue<Event> customerQueue;
     int currentTime = 0;
@@ -56,12 +59,16 @@ int main(int argc, char *argv[]) {
 
     int arrivalTime, transactionTime;
     while (myfile >> arrivalTime >> transactionTime) {
+        Event event = Event(arrivalTime, transactionTime);
+        pq.enqueue(event);
         // pq.enqueue(Event(Event::ARRIVAL, arrivalTime, transactionTime));
+        // remove me on submission
+        cout << "Inserting event to PQ: arrival time:" << arrivalTime << ", transactionTime: " << transactionTime << endl;
     }
 
     myfile.close();
 
-    cout << "Simulation Begins" << endl;
+    
 
     while (!pq.isEmpty()) {
         Event currentEvent = pq.peek();
