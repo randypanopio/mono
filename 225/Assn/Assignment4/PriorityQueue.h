@@ -13,6 +13,7 @@
 #define PRIORITYQUEUE_H
 
 #include "BinaryHeap.h"
+#include "Event.h"
 
 template <class ElementType>
 class PriorityQueue {
@@ -57,4 +58,8 @@ public:
    
 /*******  End of Priority Queue Public Interface *******/
 };
+
+// Create template
+template class PriorityQueue<int>;
+// template class PriorityQueue<Event>;
 #endif

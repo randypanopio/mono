@@ -17,22 +17,16 @@
 #include <iomanip>
 #include <fstream>
 #include <cassert>
-#include "PriorityQueue.h"
-#include "Event.h"
 #include "Queue.h"
 #include "EmptyDataCollectionException.h"
+#include "PriorityQueue.h"
+#include "Event.h"
 
-using std::cin;
-using std::endl;
-using std::cout;
-using std::ifstream;
-using std::nothrow;
-using std::getline;
-
-// Create template
-template class PriorityQueue<int>;
+// Use Event template for simulation, Event will dictate the "priority" of our customers
 template class PriorityQueue<Event>;
-template class Queue<Event>;
+
+using namespace std;
+
 
 // TODO update PQ to memory allocate in FIRST insertion
 int main(int argc, char *argv[]) {
@@ -52,10 +46,12 @@ int main(int argc, char *argv[]) {
     cout << "Simulation Begins" << endl;
 
     PriorityQueue<Event> pq;
-    Queue<Event> customerQueue;
+    // Queue<Event> customerQueue;
     int currentTime = 0;
     int totalWaitTime = 0;
     int totalProcessed = 0;
+    cout << totalWaitTime << totalProcessed << currentTime<< endl;
+    double averageWaitTime = 3.3;
 
     int arrivalTime, transactionTime;
     while (myfile >> arrivalTime >> transactionTime) {
@@ -99,11 +95,9 @@ int main(int argc, char *argv[]) {
 
     cout << "Simulation Ends" << endl;
 
-    double averageWaitTime = 3.3;
-
     cout << "\nFinal Statistics:\n";
     cout << "\tTotal number of people processed: " << totalProcessed << endl;
-    cout << "\tAverage amount of time spent waiting: " << endl;
+    cout << "\tAverage amount of time spent waiting: " << averageWaitTime << endl;
 
     return 0;
 }

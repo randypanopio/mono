@@ -1,3 +1,4 @@
+
 all: bsim
 
 bsim: BankSimApp.o PriorityQueue.h BinaryHeap.h Queue.h Event.o EmptyDataCollectionException.o
