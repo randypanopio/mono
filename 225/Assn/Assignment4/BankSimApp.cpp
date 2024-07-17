@@ -35,12 +35,14 @@ int main(int argc, char *argv[]) {
     auto q = Queue<Event>();
 
     int arrivalTime, transactionLength;    
+    cout << "baz Begins" << endl;
     // Read lines from std::cin until the end of the input, generate the events
     while (cin >> arrivalTime >> transactionLength) {
+        cout << "Inserted to pq arrival: " << arrivalTime << ", length: " << transactionLength << endl;
         Event event = Event('A', arrivalTime, transactionLength);
         pq.enqueue(event);
         // TODO remove me
-        // cout << "Inserted to pq arrival: " << arrivalTime << ", length: " << transactionLength << endl;
+        cout << "Inserted to pq arrival: " << arrivalTime << ", length: " << transactionLength << endl;
     }
     
     // go through the pq 
@@ -81,6 +83,7 @@ int main(int argc, char *argv[]) {
             }            
         }        
     }
+    // TODO maybe change the calculation to be avg += wait/total
     double averageWaitTime = static_cast<double>(totalWaitTime) / totalProcessed;
 
     cout << "Simulation Ends" << endl << endl;
