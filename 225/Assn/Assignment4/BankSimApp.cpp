@@ -8,96 +8,89 @@
  * Last Modification Date: July 2024
  */
 
+#include <iomanip>
 #include <iostream>
+#include <ostream>
 #include <stdio.h>
 #include <cstdlib>
 #include <string>
 #include <cstring>
-#include <sstream>
-#include <iomanip>
-#include <fstream>
 #include <cassert>
 #include "Queue.h"
 #include "EmptyDataCollectionException.h"
 #include "PriorityQueue.h"
 #include "Event.h"
 
-// Use Event template for simulation, Event will dictate the "priority" of our customers
-template class PriorityQueue<Event>;
-
 using namespace std;
-
 
 // TODO update PQ to memory allocate in FIRST insertion
 int main(int argc, char *argv[]) {
-    if (argc <= 1) {
-        cout << "Missing the data filename!" << endl;
-        return 1;
-    }
-
-    // read file
-    string filename = argv[1];
-    ifstream myfile(filename);
-    if (!myfile.is_open()) {
-        cout << "Unable to open file!" << endl;
-        return 1;
-    }
+    // if (argc <= 1) {
+    //     cout << "Missing the redirected file" << endl;
+    //     return 1;
+    // }
 
     cout << "Simulation Begins" << endl;
+    auto pq = PriorityQueue<Event>();
+    auto q = Queue<Event>();
 
-    PriorityQueue<Event> pq;
-    // Queue<Event> customerQueue;
+    int arrivalTime, transactionLength;    
+    // Read lines from std::cin until the end of the input, generate the events
+    while (cin >> arrivalTime >> transactionLength) {
+        Event event = Event('A', arrivalTime, transactionLength);
+        pq.enqueue(event);
+        // TODO remove me
+        // cout << "Inserted to pq arrival: " << arrivalTime << ", length: " << transactionLength << endl;
+    }
+    
+    // go through the pq 
     int currentTime = 0;
     int totalWaitTime = 0;
     int totalProcessed = 0;
-    cout << totalWaitTime << totalProcessed << currentTime<< endl;
-    double averageWaitTime = 3.3;
-
-    int arrivalTime, transactionTime;
-    while (myfile >> arrivalTime >> transactionTime) {
-        Event event = Event(arrivalTime, transactionTime);
-        pq.enqueue(event);
-        // pq.enqueue(Event(Event::ARRIVAL, arrivalTime, transactionTime));
-        // remove me on submission
-        cout << "Inserting event to PQ: arrival time:" << arrivalTime << ", transactionTime: " << transactionTime << endl;
-    }
-
-    myfile.close();
-
-    
-
     while (!pq.isEmpty()) {
         Event currentEvent = pq.peek();
         currentTime = currentEvent.getTime();
 
-        // if (currentEvent.isArrival()) {
-        //     cout << "Processing an arrival event at time: " << setw(5) << currentEvent.getTime() << endl;
-        //     pq.dequeue();
-        //     if (customerQueue.empty()) {
-        //         int departureTime = currentTime + currentEvent.getLength();
-        //         pq.enqueue(Event(Event::DEPARTURE, departureTime));
-        //     }
-        //     customerQueue.push(currentEvent);
-        // } else {
-        //     cout << "Processing a departure event at time: " << setw(5) << currentEvent.getTime() << endl;
-        //     pq.dequeue();
-        //     Event customer = customerQueue.front();
-        //     customerQueue.pop();
-        //     totalWaitTime += (currentTime - customer.getTime());
-        //     totalProcessed++;
-        //     if (!customerQueue.empty()) {
-        //         Event nextCustomer = customerQueue.front();
-        //         int departureTime = currentTime + nextCustomer.getLength();
-        //         pq.enqueue(Event(Event::DEPARTURE, departureTime));
-        //     }
-        // }
+        if (currentEvent.isArrival()) {
+            // currentEvent.print();
+            // cout << " peeked this event and removed" << endl;
+            cout << "Processing an arrival event at time: " << setw(4) << currentEvent.getTime() << endl;
+            pq.dequeue();
+            if (q.isEmpty()) {
+                int departureTime = currentTime + currentEvent.getLength();
+                // insert a departure to q
+                Event event = Event('D', departureTime);
+                pq.enqueue(event);
+            }
+            q.enqueue(currentEvent);
+        } else {
+            cout << "Processing a departure event at time: " << setw(4) << currentEvent.getTime() << endl;
+            Event customer = q.peek();
+            pq.dequeue();
+            int waitTime = currentTime - customer.getTime();
+            totalWaitTime += waitTime;
+            cout << "Customer wait time: " << waitTime << endl; // Debug print for wait time
+            totalProcessed++;
+            q.dequeue();
+            if (!q.isEmpty()) {
+                // check q and enq them to pq
+                Event nextCustomer = q.peek();
+                int departureTime = currentTime + nextCustomer.getLength();
+                Event event = Event('D', departureTime);
+                pq.enqueue(event);
+            }            
+        }        
     }
+    double averageWaitTime = static_cast<double>(totalWaitTime) / totalProcessed;
 
-    cout << "Simulation Ends" << endl;
+    cout << "Simulation Ends" << endl << endl;
 
-    cout << "\nFinal Statistics:\n";
+    cout << "\nFinal Statistics:" << endl << endl;
     cout << "\tTotal number of people processed: " << totalProcessed << endl;
     cout << "\tAverage amount of time spent waiting: " << averageWaitTime << endl;
 
+    // no need to free
+    // delete q;
+    // delete pq;
     return 0;
 }

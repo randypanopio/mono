@@ -10,11 +10,13 @@
  *
  */  
 
-#include <cmath>
-// #include <iostream>
-#include "BinaryHeap.h"  // Header file
-#include "EmptyDataCollectionException.h"
+#ifndef BINARYHEAP_CPP
+#define BINARYHEAP_CPP
 
+#include <cmath>
+#include "BinaryHeap.h"  
+#include "EmptyDataCollectionException.h"
+// #include <iostream>
 // using std::cout;
 // using std::endl;
   
@@ -165,7 +167,7 @@ void BinaryHeap<ElementType>::reHeapUp(unsigned int index) {
    // Get the parent of this node and swap and reheap with that index
    unsigned int indexOfParent = std::floor((index - 1) / 2);
    // should be swapped and reheap if current index is not correctly in position
-   if (elements[indexOfParent] > elements[index] ) {
+   if (!(elements[indexOfParent] <= elements[index])) {
       ElementType temp = elements[index];
       elements[index] = elements[indexOfParent];
       elements[indexOfParent] = temp;
@@ -173,3 +175,5 @@ void BinaryHeap<ElementType>::reHeapUp(unsigned int index) {
    }
    return; // current index in correct position
 }
+
+#endif

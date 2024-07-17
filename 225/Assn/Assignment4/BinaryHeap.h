@@ -63,5 +63,6 @@ public:
    ElementType & retrieve() const;
 };
 /******* End of Binary Heap Public Interface *******/
-
+// Include the implementation of the template class
+#include "BinaryHeap.cpp"
 #endif

@@ -9,13 +9,15 @@
  * Author: Randy Panopio
  * Date of last modification: July 2024
  */
+#ifndef QUEUE_CPP
+#define QUEUE_CPP
 
-#include <iostream>
+// #include <iostream>
 #include "Queue.h"
 #include "EmptyDataCollectionException.h"
 
-using std::cout;
-using std::endl;
+// using std::cout;
+// using std::endl;
 
 // Default constructor
 template <class ElementType>
@@ -142,5 +144,4 @@ bool Queue<ElementType>::isEmpty() const {
     return elementCount == 0;
 }
 
-// Explicit instantiation of the template
-// template class Queue<int>;
+#endif

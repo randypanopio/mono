@@ -1,43 +1,44 @@
-/* 
- * PriorityQueue.h
+/*
+ * PriorityQueue.cpp
  *
  * Description: Priority Queue class. Uses a Min binary heap
  *
- * 
  * Author: Randy Panopio
  * Last Modification: July 2024
  *
  */
 
+#ifndef PRIORITYQUEUE_CPP
+#define PRIORITYQUEUE_CPP
+
 #include "PriorityQueue.h"
 #include "BinaryHeap.h"
 #include "EmptyDataCollectionException.h"
-#include <iostream>
-#include <sys/types.h>
+// #include "Event.h"
 
-using std::cout;
-using std::endl;
+// #include <iostream>
+// using std::cout;
+// using std::endl;
+
 
 // Default constructor
 template <class ElementType>
 PriorityQueue<ElementType>::PriorityQueue() {
-    cout << "PQ default ctor invoked: " << endl; 
-    // TODO update PQ to memory allocate in FIRST insertion
+    // cout << "PQ default ctor invoked: " << endl;
     heap = new BinaryHeap<ElementType>();
 }
 
 // Copy constructor
 template <class ElementType>
 PriorityQueue<ElementType>::PriorityQueue(const PriorityQueue& rhs) {
-    cout << "PQ copy ctor invoked: " << endl; 
+    // cout << "PQ copy ctor invoked: " << endl;
     heap = new BinaryHeap<ElementType>(*rhs.heap);
 }
 
-
-// destructor
+// Destructor
 template <class ElementType>
 PriorityQueue<ElementType>::~PriorityQueue() {
-    cout << "PQ destructor invoked: " << endl; 
+    // cout << "PQ destructor invoked: " << endl;
     delete heap;
 }
 
@@ -49,13 +50,12 @@ bool PriorityQueue<ElementType>::isEmpty() const {
     return (heap->getElementCount() <= 0);
 }
 
-// Description: Inserts "newElement" in this Priority Queue and 
+// Description: Inserts "newElement" in this Priority Queue and
 //              returns true if successful, otherwise false.
 // Time Efficiency: O(log2 n)
 template <class ElementType>
-bool PriorityQueue<ElementType>::enqueue(ElementType & newElement) {
-    cout << "Inserting element in PQ: " << newElement << endl; 
-    // TODO update PQ to memory allocate in FIRST insertion
+bool PriorityQueue<ElementType>::enqueue(ElementType& newElement) {
+    // cout << "Inserting element in PQ: " << endl;
     return heap->insert(newElement);
 }
 
@@ -68,25 +68,27 @@ template <class ElementType>
 void PriorityQueue<ElementType>::dequeue() {
     try {
         heap->remove();
-        cout << "Removed an element from PQ: " << endl; 
-    } catch (const EmptyDataCollectionException &e) {
+        // cout << "Removed an element from PQ: " << endl;
+    } catch (const EmptyDataCollectionException& e) {
         throw;
-    } 
+    }
 }
 
-// Description: Returns (but does not remove) the element with the next 
+// Description: Returns (but does not remove) the element with the next
 //              "highest" priority value from the Priority Queue.
 // Precondition: This Priority Queue is not empty.
 // Postcondition: This Priority Queue is unchanged by this operation.
 // Exception: Throws EmptyDataCollectionException if this Priority Queue is empty.
 // Time Efficiency: O(1)
 template <class ElementType>
-ElementType & PriorityQueue<ElementType>::peek() const {
+ElementType& PriorityQueue<ElementType>::peek() const {
     try {
-        auto element = heap->retrieve();
-        cout << "Peeked PQ element: " << element << endl; 
+        auto& element = heap->retrieve();
+        // cout << "Peeked PQ element: " << element << endl;
         return element;
-    } catch (const EmptyDataCollectionException &e) {
+    } catch (const EmptyDataCollectionException& e) {
         throw;
-    }    
+    }
 }
+
+#endif

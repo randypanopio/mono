@@ -62,4 +62,6 @@ public:
    ElementType & peek() const;
 };
 /******* End of Queue Public Interface *******/
+// Include the implementation of the template class
+#include "Queue.cpp"
 #endif
