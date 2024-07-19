@@ -69,9 +69,9 @@ int main(int argc, char *argv[]) {
             cout << "Processing a departure event at time: " << setw(4) << currentEvent.getTime() << endl;
             Event customer = q.peek();
             pq.dequeue();
-            int waitTime = currentTime - customer.getTime();
-            totalWaitTime += waitTime;
-            cout << "Customer wait time: " << waitTime << endl; // Debug print for wait time
+            double avgWait = static_cast<double>(currentTime - customer.getTime())/totalProcessed;
+            totalWaitTime += avgWait;
+            cout << "Customer (avgd) wait time: " << avgWait << endl; // Debug print for wait time
             totalProcessed++;
             q.dequeue();
             if (!q.isEmpty()) {
@@ -84,13 +84,13 @@ int main(int argc, char *argv[]) {
         }        
     }
     // TODO maybe change the calculation to be avg += wait/total
-    double averageWaitTime = static_cast<double>(totalWaitTime) / totalProcessed;
+    // double averageWaitTime = static_cast<double>(totalWaitTime) / totalProcessed;
 
     cout << "Simulation Ends" << endl << endl;
 
     cout << "\nFinal Statistics:" << endl << endl;
     cout << "\tTotal number of people processed: " << totalProcessed << endl;
-    cout << "\tAverage amount of time spent waiting: " << averageWaitTime << endl;
+    cout << "\tAverage amount of time spent waiting: " << totalWaitTime << endl;
 
     // no need to free
     // delete q;

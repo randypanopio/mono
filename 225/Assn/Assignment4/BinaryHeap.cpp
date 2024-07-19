@@ -123,25 +123,25 @@ void BinaryHeap<ElementType>::reHeapDown(unsigned int index) { // renamed to ind
    unsigned int indexOfMinChild = index;
    
    // Find indices of children.
-   unsigned int indexOfLeftChild = 2 * index + 1;
-   unsigned int indexOfRightChild = 2 * index + 2;
+   unsigned int indexLeft = 2 * index + 1;
+   unsigned int indexRight = 2 * index + 2;
 
    // Base case: elements[index] is a leaf as it has no children
-   if (indexOfLeftChild > elementCount - 1) {
+   if (indexLeft > elementCount - 1) {
       return;
    }
 
    // If we need to swap, select the smallest child
-   // If (elements[index] > elements[indexOfLeftChild])
-   if ( ! (elements[index] <= elements[indexOfLeftChild]) ) {
-      indexOfMinChild = indexOfLeftChild;
+   // If (elements[index] > elements[indexLeft])
+   if ( ! (elements[index] <= elements[indexLeft]) ) {
+      indexOfMinChild = indexLeft;
    }      
 
    // Check if there is a right child, is it the smallest?
-   if (indexOfRightChild < elementCount) {
-      // if (elements[indexOfMinChild] > elements[indexOfRightChild])
-      if ( ! (elements[indexOfMinChild] <= elements[indexOfRightChild]) ) {
-         indexOfMinChild = indexOfRightChild;
+   if (indexRight < elementCount) {
+      // if (elements[indexOfMinChild] > elements[indexRight])
+      if ( ! (elements[indexOfMinChild] <= elements[indexRight]) ) {
+         indexOfMinChild = indexRight;
       }         
    }
 
