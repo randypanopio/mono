@@ -34,21 +34,25 @@ int main(int argc, char *argv[]) {
     auto pq = PriorityQueue<Event>();
     auto q = Queue<Event>();
 
-    int arrivalTime, transactionLength;    
-    cout << "baz Begins" << endl;
+    int arrivalTime, transactionLength; 
+    double transactionCount = 0;
     // Read lines from std::cin until the end of the input, generate the events
     while (cin >> arrivalTime >> transactionLength) {
-        cout << "Inserted to pq arrival: " << arrivalTime << ", length: " << transactionLength << endl;
+        // cout << "Inserted to pq arrival: " << arrivalTime << ", length: " << transactionLength << endl;
         Event event = Event('A', arrivalTime, transactionLength);
-        pq.enqueue(event);
+        if (pq.enqueue(event)) {
+            transactionCount++;
+        } else {
+            // cout << "Unable to enqueue an event" << endl;
+        }
+        
         // TODO remove me
-        cout << "Inserted to pq arrival: " << arrivalTime << ", length: " << transactionLength << endl;
+        // cout << "Inserted to pq arrival: " << arrivalTime << ", length: " << transactionLength << endl;
     }
     
     // go through the pq 
     int currentTime = 0;
-    int totalWaitTime = 0;
-    int totalProcessed = 0;
+    double totalWaitTime = 0;
     while (!pq.isEmpty()) {
         Event currentEvent = pq.peek();
         currentTime = currentEvent.getTime();
@@ -56,7 +60,7 @@ int main(int argc, char *argv[]) {
         if (currentEvent.isArrival()) {
             // currentEvent.print();
             // cout << " peeked this event and removed" << endl;
-            cout << "Processing an arrival event at time: " << setw(4) << currentEvent.getTime() << endl;
+            cout << "Processing an arrival event at time: " << setw(5) << currentEvent.getTime() << endl;
             pq.dequeue();
             if (q.isEmpty()) {
                 int departureTime = currentTime + currentEvent.getLength();
@@ -69,10 +73,8 @@ int main(int argc, char *argv[]) {
             cout << "Processing a departure event at time: " << setw(4) << currentEvent.getTime() << endl;
             Event customer = q.peek();
             pq.dequeue();
-            double avgWait = static_cast<double>(currentTime - customer.getTime())/totalProcessed;
-            totalWaitTime += avgWait;
-            cout << "Customer (avgd) wait time: " << avgWait << endl; // Debug print for wait time
-            totalProcessed++;
+            totalWaitTime += static_cast<double>((currentTime - customer.getTime()));
+            // cout << "Customer (avgd) wait time: " << (currentTime - customer.getTime()) << endl; 
             q.dequeue();
             if (!q.isEmpty()) {
                 // check q and enq them to pq
@@ -83,16 +85,15 @@ int main(int argc, char *argv[]) {
             }            
         }        
     }
-    // TODO maybe change the calculation to be avg += wait/total
-    // double averageWaitTime = static_cast<double>(totalWaitTime) / totalProcessed;
-
-    cout << "Simulation Ends" << endl << endl;
-
+    
+    cout << "Simulation Ends" << endl;
     cout << "\nFinal Statistics:" << endl << endl;
-    cout << "\tTotal number of people processed: " << totalProcessed << endl;
-    cout << "\tAverage amount of time spent waiting: " << totalWaitTime << endl;
+    cout << "\tTotal number of people processed: " << transactionCount << endl;
+    // this should be correct, I give up
+    double averageWaitTime =  static_cast<double>(totalWaitTime / transactionCount);
+    cout << "\tAverage amount of time spent waiting: " << averageWaitTime << endl;
 
-    // no need to free
+    // no need to free, using stack decleration
     // delete q;
     // delete pq;
     return 0;
