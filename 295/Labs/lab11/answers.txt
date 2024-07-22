@@ -1,0 +1,17 @@
+1) Relative to your assembly code last week, how much did the "dot product" and "map polynomial" implementations speed up when using the vector instructions?
+               dot_double took    13.3 ms
+           dot_double_vec took     9.1 ms
+               dot_single took    12.9 ms
+           dot_single_vec took     4.6 ms           
+          map_poly_double took    11.0 ms
+      map_poly_double_vec took     8.9 ms
+          map_poly_single took     7.9 ms
+      map_poly_single_vec took     4.5 ms
+
+Comparing just the difference of my implementation from last week to using vector instructions, dot double had a 37.5% improvement (with a SIMD of 4, 64-bit calculation), dot single had a 94.9% improvement (with a SIMD of 8, 32-bit calculation), poly double a 21.1% improvement (SIMD of 4, 64-bit calculation), poly single a 54.9% improvement (SIMD of 8, 32-bit calculation). 
+
+2) On the two problems, what was the relative speedup of vectorized implementations on single-precision floating point values, over double-precision?
+Based on part 1, since I am doing a SIMD of 8 values with the single precision values over the same 256 ymm register, whereas i was doing only 4 for the 64 bit double precision, I was getting approximately double the improvemnt. I would guess that if I had instead done only 4, 32-bit SIMD, I would have had similar performance as the double precision runs.
+
+3) When timing your assembly (and vectorclass) implementations and the implementations created by the compiler, you likely saw that for the "dot product" problem, the C implementation performed more like the non-vectorized assembly. For the "map polynomial" problem, the C implementation performed more like the vectorized assembly. Why was the compiler able to vectorize one but not the other?
+Since the dot required us to go through two separate pointer arrays for our SIMD, the compiler was likely unable to detect being able to "vectorize" what we were doing. Whereas the polynomial has a single source and destination pointer arrays, so perhaps that is why the compiler was able to apply a SIMD optimization there where the compiler could not with the dot product.
