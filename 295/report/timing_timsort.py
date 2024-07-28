@@ -10,7 +10,7 @@ def random_array(size):
 
 def revsorted_array(size):
     # randomize a seed to generate offset
-    offset = random.randint(size/4, size/2)
+    offset = random.randint(size//4, size//2)
     base_array = np.arange(size, 0, -1, dtype=np.int64)
     # Apply offset
     if offset > 0:

@@ -94,8 +94,7 @@ void testRevSortedArrays(char *res) {
 int main() {
     srand(time(NULL));
     printf("\nTesting timsort Sort:\n");
-    warmup();
-    
+    warmup();    
 
     // test
     char revprint[2048] = "";
