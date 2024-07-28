@@ -7,19 +7,58 @@
 #include <string.h>
 #include <time.h>
 #include "helpers.c"
-#include "timsort/timsort.h"
 
-// Comparison function for int64_t
-int compareInt64(const void* a, const void* b) {
-    int64_t int_a = *(int64_t*)a;
-    int64_t int_b = *(int64_t*)b;
-    if (int_a < int_b) return -1;
-    else if (int_a > int_b) return 1;
-    else return 0;
+// taken from https://www.geeksforgeeks.org/c-program-for-merge-sort/
+void merge(int64_t arr[], int l, int m, int r) {
+    int i, j, k;
+    int n1 = m - l + 1;
+    int n2 = r - m;
+
+    int64_t* L = (int64_t*) malloc(n1 * sizeof(int64_t));
+    int64_t* R = (int64_t*) malloc(n2 * sizeof(int64_t));
+
+    for (i = 0; i < n1; i++)
+        L[i] = arr[l + i];
+    for (j = 0; j < n2; j++)
+        R[j] = arr[m + 1 + j];
+
+    i = 0; j = 0; k = l;
+    while (i < n1 && j < n2) {
+        if (L[i] <= R[j]) {
+            arr[k] = L[i];
+            i++;
+        } else {
+            arr[k] = R[j];
+            j++;
+        }
+        k++;
+    }
+
+    while (i < n1) {
+        arr[k] = L[i];
+        i++;
+        k++;
+    }
+
+    while (j < n2) {
+        arr[k] = R[j];
+        j++;
+        k++;
+    }
+
+    free(L);
+    free(R);
 }
 
-void timSort(int64_t arr[], int n) {
-    timsort(arr, n, sizeof(int64_t), compareInt64);
+void mergeSort(int64_t arr[], int l, int r) {
+    if (l < r) {
+        int m = l + (r - l) / 2;
+
+        mergeSort(arr, l, m);
+        mergeSort(arr, m + 1, r);
+
+        merge(arr, l, m, r);
+    }
 }
 
 void warmup() {
@@ -27,19 +66,19 @@ void warmup() {
     for (int i = 0; i < 4; i++) {        
         printf("Warmup...\n");
         int64_t* data = random_array(SIZE);
-        timSort(data, SIZE);
+        mergeSort(data, 0, SIZE - 1);
         free(data);
     }
 }
 
 void testRandomArrays(char *res) {
-    printf("Testing timSort on random arrays\n");
+    printf("Testing mergeSort on random arrays\n");
     for (int i = 0; i < RUNCOUNT; i++) {
         int64_t* data = random_array(SIZE);
         
-        char* descr = "random timsort";
+        char* descr = "random merge";
         double run_time = 0;
-        TIMING_RESULT(descr, timSort(data, SIZE), run_time);
+        TIMING_RESULT(descr, mergeSort(data, 0, SIZE - 1), run_time);
 
         // Append the run time to the result string
         char buffer[50];
@@ -49,17 +88,17 @@ void testRandomArrays(char *res) {
         // printf("Run %d results: %f ms\n", i + 1, run_time);
         free(data);
     }
-    printf("Testing timsort sort on random arrays complete!\n");
+    printf("Testing merge sort on random arrays complete!\n");
 }
 
 void testSortedArrays(char *res) {
-    printf("Testing timSort on sorted arrays\n");
+    printf("Testing mergeSort on sorted arrays\n");
     for (int i = 0; i < RUNCOUNT; i++) {
         int64_t* data = sorted_array(SIZE);
         
-        char* descr = "sorted timsort";
+        char* descr = "sorted merge";
         double run_time = 0;
-        TIMING_RESULT(descr, timSort(data, SIZE), run_time);
+        TIMING_RESULT(descr, mergeSort(data, 0, SIZE - 1), run_time);
 
         // Append the run time to the result string
         char buffer[50];
@@ -69,18 +108,18 @@ void testSortedArrays(char *res) {
         // printf("Run %d results: %f ms\n", i + 1, run_time);
         free(data);
     }
-    printf("Testing timsort sort on sorted arrays complete!\n");
+    printf("Testing merge sort on sorted arrays complete!\n");
     // printf("\nRandom array results:\n[%s]\n", rand_results);
 }
 
 void testRevSortedArrays(char *res) {
-    printf("Testing timSort on reverse sorted arrays\n");
+    printf("Testing mergeSort on reverse sorted arrays\n");
     for (int i = 0; i < RUNCOUNT; i++) {
         int64_t* data = revsorted_array(SIZE);
         
-        char* descr = "reverse sorted timsort";
+        char* descr = "reverse sorted merge";
         double run_time = 0;
-        TIMING_RESULT(descr, timSort(data, SIZE), run_time);
+        TIMING_RESULT(descr, mergeSort(data, 0, SIZE - 1), run_time);
 
         // Append the run time to the result string
         char buffer[50];
@@ -88,12 +127,12 @@ void testRevSortedArrays(char *res) {
         strcat(res, buffer);
         free(data);
     }
-    printf("Testing timsort sort on reverse sorted arrays complete!\n");
+    printf("Testing merge sort on reverse sorted arrays complete!\n");
 }
 
 int main() {
     srand(time(NULL));
-    printf("\nTesting timsort Sort:\n");
+    printf("\nTesting merge Sort:\n");
     warmup();
     
 
