@@ -1,0 +1,66 @@
+1) Without any compiler optimization, where are the local variables (n and is_even) stored in hailstone_length? How does that change at -O1?
+is_even gets stored on rax and n gets stored in the stack and is compared to rax during -O0, while in -O1, is_even doesn't get stored and directly compares rdi (n) directly. The optimizer discarded maintaining intermediary values an directly used the passed values directly. 
+
+2) For hailstone_length at -O2, how is 3*n+1 calculated?
+in -O2, it runs all the previous cases instructions, ie, the loop will check cases == 1, do the instructions for this calculation, then check the even case and do the instructions for this case, then finalyl reaching the odd case which executes it's own final instructions. Rather than having  separate jump locations for the instructions for each case. 
+
+3) For hailstone_length, a very surprising optimization occurs between -O1 and -O2. What? (Hint: look for the recursive call.)
+Apart from the reduced instructions and elimination of using the stack, the optmizer changed the loop structure, -O1 had 5 jump loops, while -O2 now has 4. This could lead to less branch misspredictions since there is 1 less jump, and instead a single loop branch, and -O2 has a single contigous loop for all 3 cases, whereas -O1 has additional instructions in between jumps.
+
+4) Was map_poly_single_c vectorized and dot_single_c not at -O3? How can you tell?
+I think the dot_single_c is simply using vector instructions and adding the values together without actually executing any SIMD vectorized instruction, where map_poly_single_c loads the values into vector registers then executes into much fewer calculation instructions.
+
+5) How did that change with -funsafe-math-optimizations?
+The loop for dot_single_c reduced in it's amount of instructions, and maybe is running less instruction (now using vperm2f128) which could be that it's now using a more efficient vectorized instruction (?)
+
+6) How did the lab 11 performance change with -funsafe-math-optimizations? How did the C compare to the hand-written assembly or vectorclass implementations now?
+There is slight run time improvements even with the vc class with the flag enabled, the dot and vector C code did get measureably faster.
+
+Results:
+Without funsafe-math-optimizations
+                   warmup took    12.9 ms
+                   warmup took    12.9 ms
+             dot_double_c took    12.9 ms
+               dot_double took    13.2 ms
+           dot_double_vec took    10.4 ms
+            dot_double_vc took     8.5 ms
+
+             dot_single_c took    12.6 ms
+               dot_single took    12.6 ms
+           dot_single_vec took     4.4 ms
+            dot_single_vc took     4.3 ms
+
+       map_poly_double_c1 took     8.6 ms
+       map_poly_double_c2 took     8.6 ms
+          map_poly_double took    10.6 ms
+      map_poly_double_vec took     8.6 ms
+       map_poly_double_vc took     8.9 ms
+
+        map_poly_single_c took     4.4 ms
+          map_poly_single took     7.7 ms
+      map_poly_single_vec took     4.4 ms
+       map_poly_single_vc took     4.9 ms
+	   
+WITH funsafe-math-optimizations
+                   warmup took     8.6 ms
+                   warmup took     9.2 ms
+             dot_double_c took     9.5 ms
+               dot_double took    13.2 ms
+           dot_double_vec took     8.8 ms
+            dot_double_vc took     9.1 ms
+
+             dot_single_c took     4.2 ms
+               dot_single took    12.6 ms
+           dot_single_vec took     4.6 ms
+            dot_single_vc took     4.7 ms
+
+       map_poly_double_c1 took     8.7 ms
+       map_poly_double_c2 took     8.7 ms
+          map_poly_double took    10.7 ms
+      map_poly_double_vec took     9.3 ms
+       map_poly_double_vc took     8.5 ms
+
+        map_poly_single_c took     4.2 ms
+          map_poly_single took     7.5 ms
+      map_poly_single_vec took     4.4 ms
+       map_poly_single_vc took     4.2 ms
