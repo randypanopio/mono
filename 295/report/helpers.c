@@ -6,7 +6,7 @@
 #include <stdint.h>
 #include <string.h>
 
-#define RUNCOUNT 20
+#define RUNCOUNT 32
 #define SIZE 65536
 
 #define TIMING_RESULT(DESCR, CODE, TIME_VAR) do { \

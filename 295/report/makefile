@@ -1,4 +1,4 @@
-all: merge insertion tim
+all: merge insertion tim brancing_tim
 
 merge:
 	gcc -Wall -Wpedantic -march=haswell -o test_merge.out mergesort_test.c -lm
@@ -9,8 +9,8 @@ insertion:
 tim:
 	gcc -Wall -Wpedantic -march=haswell -o test_tim.out timsort_test.c timsort/timsort.c -lm
 
-tim_mem:
-	gcc -Wall -Wpedantic -march=haswell -o tim_mem.out timsort_mem.c timsort/timsort.c -lm
+brancing_tim:
+	gcc -Wall -Wpedantic -march=haswell -o brancing_tim.out branching_timsort.c timsort/timsort.c -lm
 
 clean:
 	rm -f *.out *.o

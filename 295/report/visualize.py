@@ -1,22 +1,69 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-# Example run times in seconds for 10 runs
-run_times = [0.10, 0.12, 0.11, 0.13, 0.14, 0.12, 0.11, 0.13, 0.10, 0.12]
+
+tim_sorted_array =[0.135900, 0.131900, 0.136500, 0.137200, 0.150800, 0.136700, 0.136400, 0.149600, 0.136600, 0.142200, 0.132600, 0.136900, 0.136600, 0.136400, 0.135900, 0.136900, 0.137000, 0.136700, 0.136700, 0.136600, 0.136200, 0.136200, 0.136000, 0.136000, 0.136500, 0.136100, 0.136000, 0.135900, 0.132400, 0.136100, 0.131100, 0.135900]
+
+tim_rev_sort_array = [0.167700, 0.167500, 0.166900, 0.167300, 0.167400, 0.167300, 0.174500, 0.167700, 0.167300, 0.167000, 0.166900, 0.167400, 0.166900, 0.167000, 0.166800, 0.166800, 0.166800, 0.166800, 0.167300, 0.170300, 0.165900, 0.165700, 0.166100, 0.170500, 0.166000, 0.166200, 0.166000, 0.171200, 0.167400, 0.168400, 0.168300, 0.167200]
+
+tim_random_array = [7.049800, 7.561700, 7.048700, 7.054500, 6.982700, 7.257900, 6.998700, 7.075700, 6.998400, 7.064900, 7.156200, 7.033000, 7.111200, 7.126300, 7.043200, 7.120000, 7.048600, 7.146000, 7.028600, 7.114300, 7.062400, 7.113300, 7.083700, 7.187500, 7.122100, 7.113300, 7.071500, 7.069400, 7.191000, 7.031000, 7.045900, 7.021300]
+
+merge_sorted_array =[3.806500, 3.825300, 3.903800, 3.814300, 3.845000, 3.841100, 3.834800, 3.839600, 3.823700, 3.849700, 3.852100, 3.920200, 3.819800, 3.872700, 3.849500, 3.897000, 3.892500, 3.848100, 3.814000, 3.897800, 3.850900, 3.823700, 3.798200, 3.820300, 3.821600, 3.810100, 3.819000, 3.987500, 3.828500, 3.808700, 3.781300, 3.856400]
+
+merge_rev_sort_array = [3.890100, 4.272500, 3.756900, 3.857500, 3.839200, 3.820100, 3.808400, 3.777800, 3.810500, 4.282900, 3.902800, 3.821000, 3.857300, 3.841600, 3.826800, 3.854500, 3.832200, 3.803000, 3.905000, 3.806800, 3.842500, 3.797200, 3.872800, 3.879100, 3.830900, 3.801300, 3.852700, 3.806300, 3.816500, 3.804400, 3.852700, 3.809500]
+
+merge_random_array = [6.910200, 6.934300, 7.045000, 6.906500, 6.931000, 6.938700, 6.977100, 6.905200, 6.915700, 7.074800, 7.220400, 6.941300, 6.897500, 6.929600, 7.019600, 7.055400, 6.933700, 6.886500, 6.929100, 6.889100, 6.970300, 6.918100, 6.989300, 6.890200, 6.978100, 6.924800, 6.922900, 6.908000, 6.928000, 7.038000, 6.915000, 6.921400]
+
+insertion_sorted_array =[0.113500, 0.113300, 0.113400, 0.118100, 0.114200, 0.114000, 0.114100, 0.114100, 0.114500, 0.118200, 0.114000, 0.114200, 0.114100, 0.114000, 0.117600, 0.114100, 0.114000, 0.114100, 0.114000, 0.114100, 0.118700, 0.114000, 0.114100, 0.114000, 0.114100, 0.114100, 0.114200, 0.114100, 0.114100, 0.114000, 0.114000, 0.119800]
+
+insertion_rev_sort_array = [2903.804100, 2906.046000, 2887.440100, 2906.567800, 2923.457100, 2891.270400, 2904.349000, 2907.429300, 2908.061300, 2897.125900, 2902.056900, 2907.312300, 2915.082300, 2900.143100, 2908.600900, 2912.958300, 2893.540600, 2900.206400, 2919.883100, 2924.844900, 2918.956900, 2904.944400, 2916.460600, 2902.321500, 2928.602000, 2925.750100, 2921.396100, 2910.620300, 2893.219800, 2909.548700, 2940.139200, 2919.661700]
+
+insertion_random_array = [1454.666100, 1446.270300, 1461.054100, 1454.153700, 1454.203700, 1455.004300, 1459.403900, 1463.500000, 1462.761700, 1469.455400, 1465.414300, 1463.570100, 1453.514100, 1449.975000, 1448.871700, 1448.102800, 1459.917100, 1455.108600, 1448.544700, 1463.500900, 1458.828600, 1452.458400, 1459.951200, 1451.425600, 1439.260300, 1450.511100, 1451.656100, 1458.943900, 1467.928300, 1457.654600, 1445.852500, 1467.533300]
+
+
+tim_sorted_meantime = np.mean(tim_sorted_array)
+tim_sorted_deviation = np.std(tim_sorted_array)
+
+tim_rev_sort_meantime = np.mean(tim_rev_sort_array)
+tim_rev_sort_deviation = np.std(tim_rev_sort_array)
+
+tim_random_meantime = np.mean(tim_random_array)
+tim_random_deviation = np.std(tim_random_array)
+
+merge_sorted_meantime = np.mean(merge_sorted_array)
+merge_sorted_deviation = np.std(merge_sorted_array)
+
+merge_rev_sort_meantime = np.mean(merge_rev_sort_array)
+merge_rev_sort_deviation = np.std(merge_rev_sort_array)
+
+merge_random_meantime = np.mean(merge_random_array)
+merge_random_deviation = np.std(merge_random_array)
+
+insertion_sorted_meantime = np.mean(insertion_sorted_array)
+insertion_sorted_deviation = np.std(insertion_sorted_array)
+
+insertion_rev_sort_meantime = np.mean(insertion_rev_sort_array)
+insertion_rev_sort_deviation = np.std(insertion_rev_sort_array)
+
+insertion_random_meantime = np.mean(insertion_random_array)
+insertion_random_deviation = np.std(insertion_random_array)
+
 
 # Calculate the average and standard deviation
-average_time = np.mean(run_times)
-std_deviation = np.std(run_times)
+# average_time = np.mean(run_times)
+# std_deviation = np.std(run_times)
 
-# Prepare data for plotting
-labels = ['Benchmark']
-average_times = [average_time]
-std_deviations = [std_deviation]
+# # Prepare data for plotting
+# labels = ['Benchmark']
+# average_times = [average_time]
+# std_deviations = [std_deviation]
 
-# Plotting the bar graph with error bars
-fig, ax = plt.subplots()
-ax.bar(labels, average_times, yerr=std_deviations, capsize=10, color='skyblue')
-ax.set_ylabel('Execution Time (seconds)')
-ax.set_title('Benchmark Execution Time with Standard Deviation')
+# # Plotting the bar graph with error bars
+# fig, ax = plt.subplots()
+# ax.bar(labels, average_times, yerr=std_deviations, capsize=10, color='skyblue')
+# ax.set_ylabel('Execution Time (seconds)')
+# ax.set_title('Benchmark Execution Time with Standard Deviation')
+
+
 
 # TODO generate these graphs against my runs

@@ -3,7 +3,7 @@ import time
 import numpy as np
 
 SIZE = 16384
-RUNCOUNT = 4
+RUNCOUNT = 32
 
 def random_array(size):
     return np.array([random.randint(0, size) for _ in range(size)], dtype=np.int64)
