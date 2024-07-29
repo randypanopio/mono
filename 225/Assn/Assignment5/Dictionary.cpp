@@ -8,12 +8,13 @@
  *            
  * Class Invariant: Each element stored in this Dictionary is unique (no duplications allowed).
  *
- * Author: AL
+ * Author: Randy Panopio
  * Date: Last modified: July 2024
  */
 
 // You can add more #include statements if you wish.
 
+#include <cstdint>
 #include <iostream>
 #include <cstring>
 #include "Dictionary.h"  
@@ -57,15 +58,32 @@ unsigned int Dictionary::getCapacity() const{
   return CAPACITY;
 }
 
-// Hash Function <- For you to complete!
+// Hash Function Using Weight multiplication and Bit shifting strategy
 // Description: Hashes the given indexingKey producing a "hash table index".
-// Time Efficiency: <- For you to complete! 
-// Space Efficiency: <- For you to complete!
+// Time Efficiency: O(1)
+// Space Efficiency: O(1)
 unsigned int Dictionary::hashFunction( string indexingKey ) {
+  uint64_t indexingKeyInt = stoul(indexingKey);
+  
+  // generate (prime) constants for hash calculation
+  const uint64_t PRIME_MULT_VALUE1 = 3258939961; // O(1) space
+  const uint64_t PRIME_MULT_VALUE2 = 2360029849; // O(1) space
+  const unsigned int STEP1 = 7; // O(1) space
+  const unsigned int STEP2 = 11; // O(1) space
+  const unsigned int STEP3 = 19; // O(1) space
 
-  // Put your code here
- 
-  return 0; // You must replace 0 with a proper return value.
+  // strategy is multiply the value by primes and shifting it to "space out" the bits of the hash -> more distributed hash
+  // multiply the key by a prime for it's first offset (overflow is accepted)
+  // and repeat the calculation
+  
+  indexingKeyInt ^= (indexingKeyInt >> STEP1); // O(1) time
+  indexingKeyInt *= PRIME_MULT_VALUE1; // O(1) time
+  indexingKeyInt ^= (indexingKeyInt >> STEP2); // O(1) time
+  indexingKeyInt *= PRIME_MULT_VALUE2; // O(1) time
+  indexingKeyInt ^= (indexingKeyInt >> STEP3); // O(1) time
+
+  // finally modulo the current index and return
+  return indexingKeyInt % CAPACITY; // O(1) time
 }
 
 // Description: Inserts an element into the Dictionary and increments "elementCount".
@@ -93,7 +111,7 @@ void Dictionary::insert( Profile * newElement )  {
    
   // Call hash function using indexing key to get hash index
   unsigned int hashIndex = hashFunction(newElement->getUserName());
-
+  
   // Keep hashing and probing until no more collisions using 
   // Linear Probing Hashing Collision Resolution Strategy
   unsigned int i = 0;

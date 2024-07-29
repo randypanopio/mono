@@ -8,7 +8,7 @@
  *            
  * Class Invariant: Each element stored in this Dictionary is unique (no duplications allowed).
  *
- * Author: AL
+ * Author: Randy Panopio
  * Date: Last modified: July 2024
  */
 
