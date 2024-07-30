@@ -29,9 +29,10 @@ insertion_random_array =
 [1454.666100, 1446.270300, 1461.054100, 1454.153700, 1454.203700, 1455.004300, 1459.403900, 1463.500000, 1462.761700, 1469.455400, 1465.414300, 1463.570100, 1453.514100, 1449.975000, 1448.871700, 1448.102800, 1459.917100, 1455.108600, 1448.544700, 1463.500900, 1458.828600, 1452.458400, 1459.951200, 1451.425600, 1439.260300, 1450.511100, 1451.656100, 1458.943900, 1467.928300, 1457.654600, 1445.852500, 1467.533300]
 
 -----
-Branching percentage misses:
+Cache misses and Branching percentage misses:
 sorted
     case_16384 = 
+
     case_65536 = 
     case_1048576 = 
     case_4194304 = 
@@ -48,3 +49,77 @@ random
     case_1048576 = 
     case_4194304 = 
     case_16777216 = 
+
+
+
+           103,633      branch-misses                    #    3.84% of all branches             (36.44%)
+         2,696,205      branch-instructions                                                   
+            38,665      L1-dcache-load-misses            #    0.64% of all L1-dcache accesses 
+         6,066,538      L1-dcache-loads                                                       
+               531      LLC-load-misses                                                         (63.56%)
+     <not counted>      LLC-loads                                                               (0.00%)
+
+       0.007817300 seconds time elapsed
+
+       0.005811000 seconds user
+       0.000000000 seconds sys
+
+
+====
+ Performance counter stats for './branching_test.out rand 65536':
+
+           482,081      branch-misses                    #    4.14% of all branches             (57.24%)
+        11,652,441      branch-instructions                                                     (57.22%)
+           138,279      L1-dcache-load-misses            #    0.51% of all L1-dcache accesses   (57.22%)
+        27,219,462      L1-dcache-loads                                                         (76.91%)
+                11      LLC-load-misses                  #    0.08% of all LL-cache accesses    (85.55%)
+            13,953      LLC-loads                                                               (65.87%)
+
+       0.020740891 seconds time elapsed
+
+       0.019288000 seconds user
+       0.000000000 seconds sys
+======
+ Performance counter stats for './branching_test.out rand 1048576':
+
+        11,020,779      branch-misses                    #    4.99% of all branches             (65.64%)
+       221,035,770      branch-instructions                                                     (65.64%)
+         4,121,460      L1-dcache-load-misses            #    0.79% of all L1-dcache accesses   (66.27%)
+       521,903,687      L1-dcache-loads                                                         (67.99%)
+            17,293      LLC-load-misses                  #   16.55% of all LL-cache accesses    (68.09%)
+           104,501      LLC-loads                                                               (66.37%)
+
+       0.235021791 seconds time elapsed
+
+       0.221360000 seconds user
+       0.012074000 seconds sys
+======
+ Performance counter stats for './branching_test.out rand 4194304':
+
+        46,971,601      branch-misses                    #    4.90% of all branches             (66.60%)
+       958,821,680      branch-instructions                                                     (66.60%)
+        15,727,677      L1-dcache-load-misses            #    0.68% of all L1-dcache accesses   (66.60%)
+     2,303,304,902      L1-dcache-loads                                                         (66.63%)
+            74,352      LLC-load-misses                  #   14.42% of all LL-cache accesses    (66.79%)
+           515,678      LLC-loads                                                               (66.77%)
+
+       0.935978079 seconds time elapsed
+
+       0.914666000 seconds user
+       0.020058000 seconds sys
+====
+ Performance counter stats for './branching_test.out rand 16777216':
+
+       205,037,075      branch-misses                    #    4.90% of all branches             (66.68%)
+     4,185,734,340      branch-instructions                                                     (66.68%)
+        76,975,687      L1-dcache-load-misses            #    0.77% of all L1-dcache accesses   (66.68%)
+    10,061,070,475      L1-dcache-loads                                                         (66.68%)
+           455,493      LLC-load-misses                  #   20.10% of all LL-cache accesses    (66.63%)
+         2,266,294      LLC-loads                                                               (66.63%)
+
+       3.988102767 seconds time elapsed
+
+       3.906397000 seconds user
+       0.080049000 seconds sys
+
+%%%% Sorted %%%%

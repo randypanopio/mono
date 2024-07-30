@@ -1,0 +1,72 @@
+make clean &&
+make branching_test &&
+perf stat -e L1-dcache-load-misses,L1-dcache-loads,LLC-load-misses,LLC-loads ./branching_test.out rand 16384 &&
+perf record -e L1-dcache-load-misses:pp,L1-dcache-loads:pp,LLC-load-misses:pp,LLC-loads:pp ./branching_test.out rand 16384 
+
+
+make clean &&
+make branching_test &&
+perf stat -e branch-misses,branch-instructions,L1-dcache-load-misses,L1-dcache-loads,LLC-load-misses,LLC-loads ./branching_test.out sort 16384 &&
+perf record -e branch-misses:pp,branch-instructions:pp,L1-dcache-load-misses:pp,L1-dcache-loads:pp,LLC-load-misses:pp,LLC-loads:pp ./branching_test.out sort 16384 
+
+
+make clean &&
+make branching_test &&
+perf stat -e branch-misses,branch-instructions,L1-dcache-load-misses,L1-dcache-loads,LLC-load-misses,LLC-loads ./branching_test.out sort 65536 &&
+perf record -e branch-misses:pp,branch-instructions:pp,L1-dcache-load-misses:pp,L1-dcache-loads:pp,LLC-load-misses:pp,LLC-loads:pp ./branching_test.out sort 65536 
+
+
+perf stat -e branch-misses,branch-instructions,L1-dcache-load-misses,L1-dcache-loads,LLC-load-misses,LLC-loads ./branching_test.out sort 4194304 &&
+perf record -e branch-misses:pp,branch-instructions:pp,L1-dcache-load-misses:pp,L1-dcache-loads:pp,LLC-load-misses:pp,LLC-loads:pp ./branching_test.out sort 4194304 && 
+perf stat -e branch-misses,branch-instructions,L1-dcache-load-misses,L1-dcache-loads,LLC-load-misses,LLC-loads ./branching_test.out sort 16777216 &&
+perf record -e branch-misses:pp,branch-instructions:pp,L1-dcache-load-misses:pp,L1-dcache-loads:pp,LLC-load-misses:pp,LLC-loads:pp ./branching_test.out sort 16777216 && 
+perf stat -e branch-misses,branch-instructions,L1-dcache-load-misses,L1-dcache-loads,LLC-load-misses,LLC-loads ./branching_test.out sort 33554432 &&
+perf record -e branch-misses:pp,branch-instructions:pp,L1-dcache-load-misses:pp,L1-dcache-loads:pp,LLC-load-misses:pp,LLC-loads:pp ./branching_test.out sort 33554432
+
+perf stat -e \
+    branch-misses,branch-instructions,\
+    L1-dcache-load-misses,L1-dcache-loads,\
+    LLC-load-misses,LLC-loads \
+    ./branching_test.out rand 16384 
+
+
+16384
+65536
+4194304
+16777216
+33554432
+
+
+16384 
+65536 
+1048576 
+4194304 
+16777216 
+
+  Intel(R) Core(TM) i7-9700K CPU @ 3.60GHz
+Caches (sum of all):     
+  L1d:                   256 KiB (8 instances)
+  L1i:                   256 KiB (8 instances)
+  L2:                    2 MiB (8 instances)
+  L3:                    12 MiB (1 instance)
+
+make clean &&
+make branching_test &&
+echo "---- sorted -----"
+perf stat -e branch-misses,branch-instructions,L1-dcache-load-misses,L1-dcache-loads,LLC-load-misses,LLC-loads ./branching_test.out sort 16384 && 
+perf stat -e branch-misses,branch-instructions,L1-dcache-load-misses,L1-dcache-loads,LLC-load-misses,LLC-loads ./branching_test.out sort 65536 && 
+perf stat -e branch-misses,branch-instructions,L1-dcache-load-misses,L1-dcache-loads,LLC-load-misses,LLC-loads ./branching_test.out sort 1048576 && 
+perf stat -e branch-misses,branch-instructions,L1-dcache-load-misses,L1-dcache-loads,LLC-load-misses,LLC-loads ./branching_test.out sort 4194304 && 
+perf stat -e branch-misses,branch-instructions,L1-dcache-load-misses,L1-dcache-loads,LLC-load-misses,LLC-loads ./branching_test.out sort 16777216 &&
+echo "---- revsort -----"
+perf stat -e branch-misses,branch-instructions,L1-dcache-load-misses,L1-dcache-loads,LLC-load-misses,LLC-loads ./branching_test.out rev 16384 && 
+perf stat -e branch-misses,branch-instructions,L1-dcache-load-misses,L1-dcache-loads,LLC-load-misses,LLC-loads ./branching_test.out rev 65536 && 
+perf stat -e branch-misses,branch-instructions,L1-dcache-load-misses,L1-dcache-loads,LLC-load-misses,LLC-loads ./branching_test.out rev 1048576 && 
+perf stat -e branch-misses,branch-instructions,L1-dcache-load-misses,L1-dcache-loads,LLC-load-misses,LLC-loads ./branching_test.out rev 4194304 && 
+perf stat -e branch-misses,branch-instructions,L1-dcache-load-misses,L1-dcache-loads,LLC-load-misses,LLC-loads ./branching_test.out rev 16777216 &&
+echo "---- random -----"
+perf stat -e branch-misses,branch-instructions,L1-dcache-load-misses,L1-dcache-loads,LLC-load-misses,LLC-loads ./branching_test.out rand 16384 && 
+perf stat -e branch-misses,branch-instructions,L1-dcache-load-misses,L1-dcache-loads,LLC-load-misses,LLC-loads ./branching_test.out rand 65536 && 
+perf stat -e branch-misses,branch-instructions,L1-dcache-load-misses,L1-dcache-loads,LLC-load-misses,LLC-loads ./branching_test.out rand 1048576 && 
+perf stat -e branch-misses,branch-instructions,L1-dcache-load-misses,L1-dcache-loads,LLC-load-misses,LLC-loads ./branching_test.out rand 4194304 && 
+perf stat -e branch-misses,branch-instructions,L1-dcache-load-misses,L1-dcache-loads,LLC-load-misses,LLC-loads ./branching_test.out rand 16777216 
