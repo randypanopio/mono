@@ -1,0 +1,301 @@
+
+             8,423      branch-misses                    #    2.02% of all branches           
+             1,535      LLC-load-misses                  #   30.47% of all LL-cache accesses  
+             8,873      branch-misses                    #    0.99% of all branches           
+               912      LLC-load-misses                  #   16.42% of all LL-cache accesses  
+            54,365      branch-misses                    #    0.08% of all branches           
+            10,196      LLC-load-misses                  #    9.45% of all LL-cache accesses  
+         1,121,054      branch-misses                    #    0.21% of all branches           
+           109,797      LLC-load-misses                  #   17.78% of all LL-cache accesses  
+         6,723,601      branch-misses                    #    0.24% of all branches           
+           473,452      LLC-load-misses                  #   19.06% of all LL-cache accesses  
+             8,508      branch-misses                    #    2.03% of all branches           
+               709      LLC-load-misses                  #   13.56% of all LL-cache accesses  
+             8,744      branch-misses                    #    0.98% of all branches           
+               705      LLC-load-misses                  #   12.75% of all LL-cache accesses  
+            87,015      branch-misses                    #    0.12% of all branches           
+            14,507      LLC-load-misses                  #   12.18% of all LL-cache accesses  
+           885,754      branch-misses                    #    0.17% of all branches           
+            84,488      LLC-load-misses                  #   15.45% of all LL-cache accesses  
+         4,910,583      branch-misses                    #    0.24% of all branches           
+           712,555      LLC-load-misses                  #   26.38% of all LL-cache accesses  
+             8,730      branch-misses                    #    2.08% of all branches           
+             1,019      LLC-load-misses                  #   19.16% of all LL-cache accesses  
+             8,777      branch-misses                    #    0.98% of all branches           
+               726      LLC-load-misses                  #   13.08% of all LL-cache accesses  
+            17,436      branch-misses                    #    0.05% of all branches           
+            12,590      LLC-load-misses                  #   22.34% of all LL-cache accesses  
+         1,361,509      branch-misses                    #    0.29% of all branches           
+            78,132      LLC-load-misses                  #   13.71% of all LL-cache accesses  
+         7,435,855      branch-misses                    #    0.32% of all branches           
+         1,519,107      LLC-load-misses                  #   41.42% of all LL-cache accesses  
+             8,649      branch-misses                    #    2.07% of all branches           
+             1,803      LLC-load-misses                  #   34.25% of all LL-cache accesses  
+             9,022      branch-misses                    #    1.01% of all branches           
+             1,919      LLC-load-misses                  #   32.63% of all LL-cache accesses  
+           122,848      branch-misses                    #    0.15% of all branches           
+            12,191      LLC-load-misses                  #    9.13% of all LL-cache accesses  
+           927,077      branch-misses                    #    0.20% of all branches           
+            83,701      LLC-load-misses                  #   14.00% of all LL-cache accesses  
+         8,607,876      branch-misses                    #    0.33% of all branches           
+           512,013      LLC-load-misses                  #   20.99% of all LL-cache accesses  
+             8,576      branch-misses                    #    2.05% of all branches           
+             1,840      LLC-load-misses                  #   34.75% of all LL-cache accesses  
+             8,805      branch-misses                    #    0.98% of all branches           
+               824      LLC-load-misses                  #   14.71% of all LL-cache accesses  
+            17,353      branch-misses                    #    0.07% of all branches           
+            15,026      LLC-load-misses                  #   28.85% of all LL-cache accesses  
+           757,360      branch-misses                    #    0.17% of all branches           
+            82,619      LLC-load-misses                  #   13.72% of all LL-cache accesses  
+         6,497,898      branch-misses                    #    0.24% of all branches           
+           576,073      LLC-load-misses                  #   19.33% of all LL-cache accesses  
+             8,751      branch-misses                    #    2.09% of all branches           
+             1,190      LLC-load-misses                  #   22.34% of all LL-cache accesses  
+             8,734      branch-misses                    #    0.98% of all branches           
+               540      LLC-load-misses                  #   10.01% of all LL-cache accesses  
+           108,907      branch-misses                    #    0.15% of all branches           
+            12,405      LLC-load-misses                  #    9.49% of all LL-cache accesses  
+           370,220      branch-misses                    #    0.09% of all branches           
+            99,313      LLC-load-misses                  #   15.08% of all LL-cache accesses  
+         5,175,618      branch-misses                    #    0.28% of all branches           
+           872,417      LLC-load-misses                  #   33.79% of all LL-cache accesses  
+             8,576      branch-misses                    #    2.05% of all branches           
+             1,017      LLC-load-misses                  #   19.57% of all LL-cache accesses  
+             8,754      branch-misses                    #    0.98% of all branches           
+               854      LLC-load-misses                  #   15.57% of all LL-cache accesses  
+            82,238      branch-misses                    #    0.11% of all branches           
+            11,645      LLC-load-misses                  #   10.21% of all LL-cache accesses  
+           101,841      branch-misses                    #    0.03% of all branches           
+           549,718      LLC-load-misses                  #   40.29% of all LL-cache accesses  
+         7,762,293      branch-misses                    #    0.34% of all branches           
+           519,988      LLC-load-misses                  #   20.23% of all LL-cache accesses  
+             8,621      branch-misses                    #    2.06% of all branches           
+               910      LLC-load-misses                  #   17.42% of all LL-cache accesses  
+             8,836      branch-misses                    #    0.98% of all branches           
+             1,932      LLC-load-misses                  #   32.97% of all LL-cache accesses  
+            99,093      branch-misses                    #    0.12% of all branches           
+            12,916      LLC-load-misses                  #    8.84% of all LL-cache accesses  
+         1,129,711      branch-misses                    #    0.24% of all branches           
+            79,053      LLC-load-misses                  #   13.88% of all LL-cache accesses  
+         7,604,147      branch-misses                    #    0.31% of all branches           
+           507,701      LLC-load-misses                  #   19.54% of all LL-cache accesses  
+             8,441      branch-misses                    #    2.02% of all branches           
+             1,902      LLC-load-misses                  #   36.24% of all LL-cache accesses  
+             8,766      branch-misses                    #    0.98% of all branches           
+             1,871      LLC-load-misses                  #   33.81% of all LL-cache accesses  
+            82,520      branch-misses                    #    0.11% of all branches           
+            20,369      LLC-load-misses                  #   16.47% of all LL-cache accesses  
+         1,110,255      branch-misses                    #    0.22% of all branches           
+            85,868      LLC-load-misses                  #   16.27% of all LL-cache accesses  
+         5,900,538      branch-misses                    #    0.22% of all branches           
+           490,474      LLC-load-misses                  #   19.40% of all LL-cache accesses  
+             8,459      branch-misses                    #    2.03% of all branches           
+             1,033      LLC-load-misses                  #   20.01% of all LL-cache accesses  
+             8,752      branch-misses                    #    0.98% of all branches           
+               948      LLC-load-misses                  #   16.83% of all LL-cache accesses  
+           142,831      branch-misses                    #    0.19% of all branches           
+            13,583      LLC-load-misses                  #   10.11% of all LL-cache accesses  
+           659,400      branch-misses                    #    0.17% of all branches           
+            82,917      LLC-load-misses                  #   15.93% of all LL-cache accesses  
+         6,796,350      branch-misses                    #    0.24% of all branches           
+           586,330      LLC-load-misses                  #   21.39% of all LL-cache accesses  
+             8,759      branch-misses                    #    2.13% of all branches           
+             1,133      LLC-load-misses                  #   20.81% of all LL-cache accesses  
+             8,647      branch-misses                    #    1.00% of all branches           
+             1,848      LLC-load-misses                  #   32.54% of all LL-cache accesses  
+           135,872      branch-misses                    #    0.17% of all branches           
+            12,473      LLC-load-misses                  #    9.03% of all LL-cache accesses  
+         1,166,230      branch-misses                    #    0.24% of all branches           
+            87,056      LLC-load-misses                  #   14.41% of all LL-cache accesses  
+         2,065,762      branch-misses                    #    0.10% of all branches           
+         1,468,121      LLC-load-misses                  #   24.01% of all LL-cache accesses  
+             8,416      branch-misses                    #    2.06% of all branches           
+               946      LLC-load-misses                  #   18.22% of all LL-cache accesses  
+             8,634      branch-misses                    #    1.00% of all branches           
+             1,886      LLC-load-misses                  #   33.09% of all LL-cache accesses  
+           158,151      branch-misses                    #    0.21% of all branches           
+            12,656      LLC-load-misses                  #    9.83% of all LL-cache accesses  
+         1,225,731      branch-misses                    #    0.25% of all branches           
+            78,725      LLC-load-misses                  #   13.50% of all LL-cache accesses  
+         6,434,269      branch-misses                    #    0.25% of all branches           
+           599,561      LLC-load-misses                  #   21.68% of all LL-cache accesses  
+             8,599      branch-misses                    #    2.10% of all branches           
+             1,892      LLC-load-misses                  #   35.65% of all LL-cache accesses  
+             8,807      branch-misses                    #    1.02% of all branches           
+               799      LLC-load-misses                  #   13.67% of all LL-cache accesses  
+           170,979      branch-misses                    #    0.21% of all branches           
+            12,255      LLC-load-misses                  #    9.45% of all LL-cache accesses  
+         1,163,468      branch-misses                    #    0.23% of all branches           
+            88,917      LLC-load-misses                  #   15.79% of all LL-cache accesses  
+         7,937,568      branch-misses                    #    0.29% of all branches           
+           615,463      LLC-load-misses                  #   23.01% of all LL-cache accesses  
+             8,561      branch-misses                    #    2.09% of all branches           
+             1,862      LLC-load-misses                  #   35.01% of all LL-cache accesses  
+             9,299      branch-misses                    #    1.07% of all branches           
+               672      LLC-load-misses                  #   11.44% of all LL-cache accesses  
+           146,575      branch-misses                    #    0.18% of all branches           
+            11,683      LLC-load-misses                  #    9.54% of all LL-cache accesses  
+         1,858,688      branch-misses                    #    0.38% of all branches           
+            80,765      LLC-load-misses                  #   14.24% of all LL-cache accesses  
+         6,952,219      branch-misses                    #    0.26% of all branches           
+           673,563      LLC-load-misses                  #   23.94% of all LL-cache accesses  
+             8,498      branch-misses                    #    2.07% of all branches           
+             1,078      LLC-load-misses                  #   20.79% of all LL-cache accesses  
+             8,827      branch-misses                    #    1.03% of all branches           
+               759      LLC-load-misses                  #   13.31% of all LL-cache accesses  
+           170,485      branch-misses                    #    0.21% of all branches           
+            11,092      LLC-load-misses                  #    8.58% of all LL-cache accesses  
+         1,470,294      branch-misses                    #    0.29% of all branches           
+            88,054      LLC-load-misses                  #   15.12% of all LL-cache accesses  
+         7,697,391      branch-misses                    #    0.30% of all branches           
+           519,125      LLC-load-misses                  #   16.19% of all LL-cache accesses  
+             8,855      branch-misses                    #    2.15% of all branches           
+             1,098      LLC-load-misses                  #   20.44% of all LL-cache accesses  
+             8,992      branch-misses                    #    1.04% of all branches           
+               783      LLC-load-misses                  #   13.55% of all LL-cache accesses  
+           136,563      branch-misses                    #    0.18% of all branches           
+            14,943      LLC-load-misses                  #   10.37% of all LL-cache accesses  
+           159,268      branch-misses                    #    0.04% of all branches           
+            97,212      LLC-load-misses                  #   12.97% of all LL-cache accesses  
+         6,139,088      branch-misses                    #    0.23% of all branches           
+         1,006,669      LLC-load-misses                  #   30.69% of all LL-cache accesses  
+             8,465      branch-misses                    #    2.07% of all branches           
+             1,836      LLC-load-misses                  #   34.25% of all LL-cache accesses  
+             9,380      branch-misses                    #    1.07% of all branches           
+             1,025      LLC-load-misses                  #   16.65% of all LL-cache accesses  
+            91,650      branch-misses                    #    0.12% of all branches           
+             9,485      LLC-load-misses                  #    7.23% of all LL-cache accesses  
+         1,264,445      branch-misses                    #    0.24% of all branches           
+            83,180      LLC-load-misses                  #   14.56% of all LL-cache accesses  
+         7,703,234      branch-misses                    #    0.28% of all branches           
+           602,838      LLC-load-misses                  #   22.57% of all LL-cache accesses  
+             8,805      branch-misses                    #    2.14% of all branches           
+             1,126      LLC-load-misses                  #   20.79% of all LL-cache accesses  
+             8,742      branch-misses                    #    1.02% of all branches           
+               784      LLC-load-misses                  #   14.41% of all LL-cache accesses  
+           121,354      branch-misses                    #    0.15% of all branches           
+            10,115      LLC-load-misses                  #    7.08% of all LL-cache accesses  
+         1,097,866      branch-misses                    #    0.21% of all branches           
+            87,639      LLC-load-misses                  #   15.82% of all LL-cache accesses  
+         3,785,810      branch-misses                    #    0.15% of all branches           
+           493,846      LLC-load-misses                  #   18.31% of all LL-cache accesses  
+             8,486      branch-misses                    #    2.07% of all branches           
+               670      LLC-load-misses                  #   13.01% of all LL-cache accesses  
+             8,807      branch-misses                    #    1.02% of all branches           
+               824      LLC-load-misses                  #   14.19% of all LL-cache accesses  
+           102,188      branch-misses                    #    0.12% of all branches           
+            11,877      LLC-load-misses                  #    9.67% of all LL-cache accesses  
+         1,350,118      branch-misses                    #    0.26% of all branches           
+            82,099      LLC-load-misses                  #   13.85% of all LL-cache accesses  
+         4,936,606      branch-misses                    #    0.19% of all branches           
+           501,394      LLC-load-misses                  #   18.96% of all LL-cache accesses  
+             8,532      branch-misses                    #    2.09% of all branches           
+             1,666      LLC-load-misses                  #   32.51% of all LL-cache accesses  
+             8,928      branch-misses                    #    1.03% of all branches           
+               722      LLC-load-misses                  #   12.75% of all LL-cache accesses  
+            81,634      branch-misses                    #    0.11% of all branches           
+            14,127      LLC-load-misses                  #    9.30% of all LL-cache accesses  
+           735,406      branch-misses                    #    0.17% of all branches           
+            91,437      LLC-load-misses                  #   14.66% of all LL-cache accesses  
+         4,881,914      branch-misses                    #    0.19% of all branches           
+           498,690      LLC-load-misses                  #   17.76% of all LL-cache accesses  
+           129,938      branch-misses                    #    4.77% of all branches           
+               993      LLC-load-misses                  #   15.92% of all LL-cache accesses  
+           553,149      branch-misses                    #    4.84% of all branches           
+               885      LLC-load-misses                  #    7.72% of all LL-cache accesses  
+        10,777,900      branch-misses                    #    4.89% of all branches           
+            13,996      LLC-load-misses                  #    9.29% of all LL-cache accesses  
+        47,283,075      branch-misses                    #    4.90% of all branches           
+            92,009      LLC-load-misses                  #   15.19% of all LL-cache accesses  
+       205,071,630      branch-misses                    #    4.90% of all branches           
+           493,860      LLC-load-misses                  #   18.53% of all LL-cache accesses  
+           129,710      branch-misses                    #    4.78% of all branches           
+             1,043      LLC-load-misses                  #   18.77% of all LL-cache accesses  
+           551,186      branch-misses                    #    4.84% of all branches           
+               999      LLC-load-misses                  #    9.31% of all LL-cache accesses  
+        10,761,395      branch-misses                    #    4.88% of all branches           
+            15,257      LLC-load-misses                  #    9.71% of all LL-cache accesses  
+        47,180,262      branch-misses                    #    4.91% of all branches           
+            76,390      LLC-load-misses                  #   13.01% of all LL-cache accesses  
+       205,139,601      branch-misses                    #    4.90% of all branches           
+           478,472      LLC-load-misses                  #   18.58% of all LL-cache accesses  
+           129,256      branch-misses                    #    4.75% of all branches           
+               679      LLC-load-misses                  #   11.60% of all LL-cache accesses  
+           554,964      branch-misses                    #    4.87% of all branches           
+               851      LLC-load-misses                  #    7.57% of all LL-cache accesses  
+        10,727,985      branch-misses                    #    4.87% of all branches           
+            12,408      LLC-load-misses                  #    8.16% of all LL-cache accesses  
+        47,265,590      branch-misses                    #    4.90% of all branches           
+            88,016      LLC-load-misses                  #   14.32% of all LL-cache accesses  
+       205,068,604      branch-misses                    #    4.90% of all branches           
+           478,670      LLC-load-misses                  #   18.12% of all LL-cache accesses  
+           129,862      branch-misses                    #    4.77% of all branches           
+             1,962      LLC-load-misses                  #   32.35% of all LL-cache accesses  
+           553,218      branch-misses                    #    4.84% of all branches           
+             1,905      LLC-load-misses                  #   16.38% of all LL-cache accesses  
+        10,794,809      branch-misses                    #    4.89% of all branches           
+            14,220      LLC-load-misses                  #    9.31% of all LL-cache accesses  
+        47,175,540      branch-misses                    #    4.89% of all branches           
+            88,690      LLC-load-misses                  #   14.03% of all LL-cache accesses  
+       205,551,921      branch-misses                    #    4.90% of all branches           
+           478,276      LLC-load-misses                  #   18.06% of all LL-cache accesses  
+           129,655      branch-misses                    #    4.76% of all branches           
+             2,141      LLC-load-misses                  #   35.56% of all LL-cache accesses  
+           552,562      branch-misses                    #    4.84% of all branches           
+             1,774      LLC-load-misses                  #   14.92% of all LL-cache accesses  
+        10,764,885      branch-misses                    #    4.88% of all branches           
+            13,479      LLC-load-misses                  #    8.30% of all LL-cache accesses  
+        47,128,709      branch-misses                    #    4.90% of all branches           
+            82,646      LLC-load-misses                  #   13.97% of all LL-cache accesses  
+       205,232,903      branch-misses                    #    4.90% of all branches           
+           463,172      LLC-load-misses                  #   17.13% of all LL-cache accesses  
+           129,308      branch-misses                    #    4.75% of all branches           
+             1,291      LLC-load-misses                  #   22.67% of all LL-cache accesses  
+           551,248      branch-misses                    #    4.81% of all branches           
+               848      LLC-load-misses                  #    7.38% of all LL-cache accesses  
+        10,740,960      branch-misses                    #    4.86% of all branches           
+            13,342      LLC-load-misses                  #    8.30% of all LL-cache accesses  
+        47,102,909      branch-misses                    #    4.90% of all branches           
+            78,515      LLC-load-misses                  #   12.92% of all LL-cache accesses  
+       205,001,094      branch-misses                    #    4.89% of all branches           
+           483,926      LLC-load-misses                  #   17.74% of all LL-cache accesses  
+           129,535      branch-misses                    #    4.73% of all branches           
+             1,885      LLC-load-misses                  #   30.73% of all LL-cache accesses  
+           551,066      branch-misses                    #    4.82% of all branches           
+             2,036      LLC-load-misses                  #   17.31% of all LL-cache accesses  
+        10,748,110      branch-misses                    #    4.87% of all branches           
+            14,747      LLC-load-misses                  #   10.10% of all LL-cache accesses  
+        47,264,922      branch-misses                    #    4.91% of all branches           
+            84,150      LLC-load-misses                  #   14.10% of all LL-cache accesses  
+       205,462,382      branch-misses                    #    4.91% of all branches           
+           474,597      LLC-load-misses                  #   18.04% of all LL-cache accesses  
+           129,299      branch-misses                    #    4.75% of all branches           
+               944      LLC-load-misses                  #   15.69% of all LL-cache accesses  
+           550,615      branch-misses                    #    4.81% of all branches           
+               864      LLC-load-misses                  #    7.31% of all LL-cache accesses  
+        10,726,175      branch-misses                    #    4.87% of all branches           
+            14,763      LLC-load-misses                  #    9.86% of all LL-cache accesses  
+        47,094,945      branch-misses                    #    4.88% of all branches           
+            90,691      LLC-load-misses                  #   14.70% of all LL-cache accesses  
+       205,112,673      branch-misses                    #    4.90% of all branches           
+           480,014      LLC-load-misses                  #   17.59% of all LL-cache accesses  
+           129,050      branch-misses                    #    4.75% of all branches           
+             1,157      LLC-load-misses                  #   20.62% of all LL-cache accesses  
+           552,168      branch-misses                    #    4.83% of all branches           
+               690      LLC-load-misses                  #    5.87% of all LL-cache accesses  
+        10,732,681      branch-misses                    #    4.87% of all branches           
+            14,582      LLC-load-misses                  #    9.60% of all LL-cache accesses  
+        47,132,700      branch-misses                    #    4.88% of all branches           
+            95,550      LLC-load-misses                  #   15.45% of all LL-cache accesses  
+       205,192,447      branch-misses                    #    4.90% of all branches           
+           480,987      LLC-load-misses                  #   18.15% of all LL-cache accesses  
+           129,277      branch-misses                    #    4.77% of all branches           
+             1,173      LLC-load-misses                  #   19.93% of all LL-cache accesses  
+           551,171      branch-misses                    #    4.83% of all branches           
+             2,002      LLC-load-misses                  #   17.35% of all LL-cache accesses  
+        10,741,476      branch-misses                    #    4.89% of all branches           
+            12,656      LLC-load-misses                  #    8.50% of all LL-cache accesses  
+        47,249,583      branch-misses                    #    4.89% of all branches           
+            88,783      LLC-load-misses                  #   13.96% of all LL-cache accesses  
+       205,333,890      branch-misses                    #    4.90% of all branches           
+           492,869      LLC-load-misses                  #   18.56% of all LL-cache accesses  
