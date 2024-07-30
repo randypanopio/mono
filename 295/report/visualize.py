@@ -116,7 +116,7 @@ ax.set_xticklabels(labels)
 ax.set_yscale('log')
 ax.legend()
 
-ax.margins(y=0.2)  # Add margin to the top (and bottom) of the graph
+ax.margins(y=0.5)  # Add margin to the top (and bottom) of the graph
 
 # Function to add annotations with standard deviation margins and wrap text to fit bar width
 def autolabel(rects, std_devs):
