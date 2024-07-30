@@ -32,7 +32,6 @@ insertion_random_array =
 Cache misses and Branching percentage misses:
 sorted
     case_16384 = 
-
     case_65536 = 
     case_1048576 = 
     case_4194304 = 
