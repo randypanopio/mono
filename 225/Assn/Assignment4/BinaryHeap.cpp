@@ -127,7 +127,7 @@ void BinaryHeap<ElementType>::reHeapDown(unsigned int index) { // renamed to ind
    unsigned int indexRight = 2 * index + 2;
 
    // Base case: elements[index] is a leaf as it has no children
-   if (indexLeft > elementCount - 1) {
+   if (indexOfMinChild > elementCount - 1) {
       return;
    }
 
